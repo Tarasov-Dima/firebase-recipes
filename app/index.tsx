@@ -10,7 +10,7 @@ export default function Index() {
 				alignItems: "center",
 			}}
 		>
-			<Text style={{ fontSize: 40 }}>Lena жопа</Text>
+			<Text style={{ fontSize: 40 }}>GitHub actions</Text>
 		</View>
 	);
 }
