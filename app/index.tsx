@@ -1,16 +1,17 @@
 import { Text, View } from "react-native";
-import firebase from "../FirebaseConfig";
+import { Logout } from "@/components/Logout";
+import { useState } from "react";
+import FirebaseAuthService from "@/FirebaseAuthService";
+import { LoginForm } from "@/components/LoginForm";
 
 export default function Index() {
+	const [user, setUser] = useState(null);
+
+	FirebaseAuthService.subscribeToAuthChanges(setUser);
+
 	return (
-		<View
-			style={{
-				flex: 1,
-				// justifyContent: "center",
-				alignItems: "center",
-			}}
-		>
-			<Text style={{ fontSize: 40 }}>GitHub actions</Text>
+		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+			{user ? <Logout user={user} /> : <LoginForm />}
 		</View>
 	);
 }
