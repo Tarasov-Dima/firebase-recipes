@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Button, Input } from "@rneui/themed";
-import { Card } from "@rneui/base";
+import { Button, Input, Card } from "@rneui/themed";
 import { router } from "expo-router";
 import FirebaseAuthService from "@/FirebaseAuthService";
 import { Platform } from "react-native";
