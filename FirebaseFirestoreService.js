@@ -14,20 +14,7 @@ import {
 	deleteDoc,
 } from "firebase/firestore";
 
-// const firestore = firebase.firestore();
-
 const createDocument = async (collection, document) => {
-	// await setDoc(doc(db, "cities", "LA"), {
-	// 	name: "Los Angeles",
-	// 	state: "CA",
-	// 	country: "USA",
-	// });
-	// const docRef = await addDoc(collection(db, "cities"), {
-	// 	name: "Tokyo",
-	// 	country: "Japan",
-	// });
-	// console.log("Document written with ID: ", docRef.id);
-	// console.log(collection, document);
 	return addDoc(firestoreCollection(db, collection), document);
 };
 
