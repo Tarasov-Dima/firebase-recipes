@@ -1,9 +1,9 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Button, Input, Card } from "@rneui/themed";
 import { router } from "expo-router";
 import FirebaseAuthService from "@/FirebaseAuthService";
 import { Platform } from "react-native";
+import { Card, Divider, TextInput, Button } from "react-native-paper";
 
 export const LoginForm = () => {
 	const {
@@ -34,20 +34,20 @@ export const LoginForm = () => {
 	};
 	return (
 		<Card>
-			<Card.Title>Log In</Card.Title>
-			<Card.Divider />
+			{/* <Card.Title>Log In</Card.Title> */}
+			<Divider />
 			<Controller
 				control={control}
 				rules={{
 					required: true,
 				}}
 				render={({ field: { onChange, onBlur, value } }) => (
-					<Input
+					<TextInput
 						placeholder='email'
 						onBlur={onBlur}
 						onChangeText={onChange}
 						value={value}
-						errorMessage={errors.email && "This is required"}
+						// errorMessage={errors.email && "This is required"}
 					/>
 				)}
 				name='email'
@@ -59,29 +59,21 @@ export const LoginForm = () => {
 					required: true,
 				}}
 				render={({ field: { onChange, onBlur, value } }) => (
-					<Input
+					<TextInput
 						placeholder='password'
 						onBlur={onBlur}
 						onChangeText={onChange}
 						value={value}
-						errorMessage={errors.password && "This is required"}
+						// errorMessage={errors.password && "This is required"}
 						secureTextEntry
 					/>
 				)}
 				name='password'
 			/>
-			<Button onPress={handleSubmit(signIn)} title='LOG IN' />
-			<Button
-				type='clear'
-				title='Sign Up'
-				onPress={() => router.replace("/sign-up")}
-			/>
+			<Button onPress={handleSubmit(signIn)}>LOG IN</Button>
+			<Button onPress={() => router.replace("/sign-up")}>Sign Up</Button>
 			{Platform.OS === "web" && (
-				<Button
-					type='clear'
-					title='sign in with google'
-					onPress={handleLoginWithGoogle}
-				/>
+				<Button onPress={handleLoginWithGoogle}>sign in with google</Button>
 			)}
 		</Card>
 	);

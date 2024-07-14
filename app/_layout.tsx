@@ -1,21 +1,23 @@
-import { Slot, Stack } from "expo-router";
+import React from "react";
+import { Stack } from "expo-router";
 import { SessionProvider } from "../ctx";
-import { ThemeProvider, createTheme } from "@rneui/themed";
+import { PaperProvider } from "react-native-paper";
+
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import FirebaseAuthService from "@/FirebaseAuthService";
+import { View } from "react-native";
 
-const theme = createTheme({ mode: "dark" });
-
-export default function RootLayout() {
+const RootLayout = () => {
 	return (
-		<ThemeProvider theme={theme}>
+		<PaperProvider>
 			<SafeAreaProvider>
-				<SessionProvider>
+				<View style={{ flex: 1, backgroundColor: "red" }}>
 					<Stack>
-						<Stack.Screen name='index' options={{ headerShown: false }} />
+						<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
 					</Stack>
-				</SessionProvider>
+				</View>
 			</SafeAreaProvider>
-		</ThemeProvider>
+		</PaperProvider>
 	);
-}
+};
+
+export default RootLayout;
