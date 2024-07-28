@@ -1,11 +1,11 @@
+import { Sex } from "@/types/user";
+
 // Constants for BMR calculation
 const BMR_CONSTANT1 = 10; // Constant multiplier for weight in kg
 const BMR_CONSTANT2 = 6.25; // Constant multiplier for height in cm
 const BMR_CONSTANT3 = 5; // Constant multiplier for age in years
 const BMR_CONSTANT4_MEN = 5; // Constant addition for men
 const BMR_CONSTANT4_WOMEN = 161; // Constant subtraction for women
-
-export type Sex = "male" | "female";
 
 type BMRProps = {
 	weight: number; //kg

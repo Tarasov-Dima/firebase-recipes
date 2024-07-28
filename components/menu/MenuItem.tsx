@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { IngredientsView } from "./IngredientsView";
-import { Card, SegmentedButtons } from "react-native-paper";
+import { Card, SegmentedButtons, Switch } from "react-native-paper";
 import { NutrientsView } from "./NutrientsView";
 import { RecipeView } from "./RecipeView";
-import type { Ingredient, Nutrients, Recipe } from "@/types";
+import type { Ingredient, Recipe } from "@/types";
+import {
+	calculateIngredientsForCalories,
+	calculateTotalNutrients,
+} from "@/utils/calculateNutrients";
+import { useStorage } from "@/useStorage";
+import { calculateMealCaloriesPerPerson } from "@/utils/calculateMealCalroriesPerPerson";
 
 type MenuItemProps = {
-	title: "Breakfast" | "Lunch" | "Dinner";
+	title: "breakfast" | "lunch" | "dinner";
 	ingredients: Ingredient[];
-	nutrients: Nutrients;
 	recipe: Recipe;
 	name: string;
 };
@@ -18,21 +23,38 @@ type MenuChoiceType = "ingredients" | "recipe" | "nutrients";
 export const MenuItem = ({
 	title,
 	ingredients,
-	nutrients,
 	recipe,
+	name,
 }: MenuItemProps) => {
 	const [choice, setChoice] = useState<MenuChoiceType>("ingredients");
+	const [premium, setPremium] = useState(false);
+
+	const { data: user } = useStorage("Dima");
+
+	const onToggleSwitch = () => setPremium(!premium);
+
+	const personCaloriesPerMeal = calculateMealCaloriesPerPerson({
+		personDayCalories: user?.calculateAMR,
+		type: "breakfast",
+	});
+
+	const scaledIngredients = calculateIngredientsForCalories(
+		ingredients,
+		personCaloriesPerMeal
+	);
+	const mealIngredients = premium ? scaledIngredients : ingredients;
+	const totalNutrients = calculateTotalNutrients(mealIngredients);
 
 	const renderContent = () => {
 		switch (choice) {
 			case "ingredients": {
-				return <IngredientsView rowItems={ingredients} />;
+				return <IngredientsView rowItems={mealIngredients} />;
 			}
 			case "recipe": {
 				return <RecipeView recipe={recipe} />;
 			}
 			case "nutrients": {
-				return <NutrientsView rowItems={nutrients} />;
+				return <NutrientsView nutrients={totalNutrients} />;
 			}
 		}
 	};
@@ -43,7 +65,8 @@ export const MenuItem = ({
 
 	return (
 		<Card>
-			<Card.Title title={title} />
+			<Switch value={premium} onValueChange={onToggleSwitch} />
+			<Card.Title title={`${title}: ${name}`} />
 			<Card.Content>
 				<SegmentedButtons
 					value={choice}

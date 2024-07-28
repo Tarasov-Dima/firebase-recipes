@@ -9,8 +9,8 @@ type RecipeProps = {
 const BULLET = "\u2022";
 
 export const RecipeView = ({ recipe }: RecipeProps) => {
-	return splitIntoSteps(recipe).map((recipeStep) => {
-		return <Text>{`${BULLET} ${recipeStep}`}</Text>;
+	return splitIntoSteps(recipe).map((recipeStep, index) => {
+		return <Text key={index}>{`${BULLET} ${recipeStep}`}</Text>;
 	});
 };
 

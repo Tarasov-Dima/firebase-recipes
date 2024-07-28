@@ -1,9 +1,11 @@
 import { calculateBMR, type Sex } from "@/utils/calculateBMR";
 import React, { useState } from "react";
 import { View, Text } from "react-native";
-import { SegmentedButtons } from "react-native-paper";
+import { Button, SegmentedButtons, TextInput } from "react-native-paper";
 import { LabelInput } from "./LabelInput";
 import { Picker } from "@react-native-picker/picker";
+import { setStorageItemAsync } from "@/storageService";
+import { router } from "expo-router";
 
 const indexOfActivity = {
 	sedentary: "1.2",
@@ -14,6 +16,7 @@ const indexOfActivity = {
 };
 
 export const AddUserForm = () => {
+	const [name, setName] = useState("");
 	const [sex, setSex] = useState<Sex>("male");
 	const [weight, setWeight] = useState("");
 	const [height, setHeight] = useState("");
@@ -30,9 +33,23 @@ export const AddUserForm = () => {
 				age: Number(age),
 			})
 	);
+	const handleSave = async () => {
+		await setStorageItemAsync(name, {
+			name,
+			sex,
+			weight,
+			height,
+			age,
+			calculateAMR,
+			activityLevel,
+		});
+		router.back();
+	};
 
 	return (
 		<View>
+			<Text>Name</Text>
+			<TextInput value={name} onChangeText={setName} />
 			<Text>Sex</Text>
 			<SegmentedButtons
 				value={sex}
@@ -93,7 +110,14 @@ export const AddUserForm = () => {
 					value={indexOfActivity.extremelyActive}
 				/>
 			</Picker>
-			{!!calculateAMR && <Text>You need {calculateAMR} calories per day</Text>}
+			{!!calculateAMR && (
+				<>
+					<Text>{calculateAMR} calories per day</Text>
+					<Button onPress={handleSave} mode='contained'>
+						save
+					</Button>
+				</>
+			)}
 		</View>
 	);
 };

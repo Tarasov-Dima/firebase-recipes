@@ -68,3 +68,25 @@ export function useStorageState(key: string): UseStateHook<string> {
 
 	return [state, setValue];
 }
+
+// export async function setStorageItemAsync(key: string, value: any) {
+// 	if (Platform.OS === "web") {
+// 		try {
+// 			if (value === null) {
+// 				localStorage.removeItem(key);
+// 			} else {
+// 				const stringValue = JSON.stringify(value);
+// 				localStorage.setItem(key, stringValue);
+// 			}
+// 		} catch (e) {
+// 			console.error("Local storage is unavailable:", e);
+// 		}
+// 	} else {
+// 		if (value === null) {
+// 			await SecureStore.deleteItemAsync(key);
+// 		} else {
+// 			const stringValue = JSON.stringify(value);
+// 			await SecureStore.setItemAsync(key, stringValue);
+// 		}
+// 	}
+// }
