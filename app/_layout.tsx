@@ -1,22 +1,25 @@
 import React from "react";
 import { Stack } from "expo-router";
-import { SessionProvider } from "../ctx";
-import { PaperProvider } from "react-native-paper";
-
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { View } from "react-native";
+import { ThemeProvider } from "@/theme";
 
 const RootLayout = () => {
 	return (
-		<PaperProvider>
+		<ThemeProvider>
 			<SafeAreaProvider>
 				<View style={{ flex: 1, backgroundColor: "red" }}>
 					<Stack>
-						<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+						<Stack.Screen
+							name='(tabs)'
+							options={{
+								headerShown: false,
+							}}
+						/>
 					</Stack>
 				</View>
 			</SafeAreaProvider>
-		</PaperProvider>
+		</ThemeProvider>
 	);
 };
 

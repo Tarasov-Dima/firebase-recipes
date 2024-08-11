@@ -9,7 +9,7 @@ import {
 } from "react-native-paper";
 import { NutrientsView } from "./NutrientsView";
 import { RecipeView } from "./RecipeView";
-import type { Ingredient, Recipe } from "@/types";
+import { User, type Ingredient, type Recipe } from "@/types";
 import {
 	calculateIngredientsForCalories,
 	calculateTotalNutrients,
@@ -35,7 +35,7 @@ export const MenuItem = ({
 	const [choice, setChoice] = useState<MenuChoiceType>("ingredients");
 	const [premium, setPremium] = useState(false);
 
-	const { data: users } = useStorage("users");
+	const { data: users } = useStorage<User[]>("users");
 
 	const onToggleSwitch = () => setPremium(!premium);
 

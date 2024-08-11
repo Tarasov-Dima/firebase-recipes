@@ -13,7 +13,7 @@ import { FlashList } from "@shopify/flash-list";
 import { User } from "@/types";
 
 const SettingsTab = () => {
-	const { data: users, refetch, setValue } = useStorage("users");
+	const { data: users, refetch, setValue } = useStorage<User[]>("users");
 
 	useFocusEffect(
 		useCallback(() => {

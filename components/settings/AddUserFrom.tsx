@@ -28,7 +28,7 @@ export const AddUserForm = () => {
 		id: prevUserId,
 	} = useLocalSearchParams<User>();
 
-	const { data: users, loading, setValue } = useStorage("users");
+	const { data: users, loading, setValue } = useStorage<User[]>("users");
 
 	const [name, setName] = useState(prevName ?? "");
 	const [sex, setSex] = useState<Sex>(prevSex ?? "male");
