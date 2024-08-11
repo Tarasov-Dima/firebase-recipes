@@ -12,7 +12,7 @@ export const IngredientsView = ({ rowItems }: IngredientsProps) => {
 			<DataTable.Row key={id}>
 				<DataTable.Cell>{name}</DataTable.Cell>
 				<DataTable.Cell numeric>
-					{amount.number} {amount.type}
+					{Math.round(amount.number)} {amount.type}
 				</DataTable.Cell>
 			</DataTable.Row>
 		));

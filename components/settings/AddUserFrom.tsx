@@ -1,11 +1,13 @@
-import { calculateBMR, type Sex } from "@/utils/calculateBMR";
+import { calculateBMR } from "@/utils/calculateBMR";
 import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { Button, SegmentedButtons, TextInput } from "react-native-paper";
 import { LabelInput } from "./LabelInput";
 import { Picker } from "@react-native-picker/picker";
-import { setStorageItemAsync } from "@/storageService";
-import { router } from "expo-router";
+
+import { router, useLocalSearchParams } from "expo-router";
+import { useStorage } from "@/useStorage";
+import { Sex, User } from "@/types/user";
 
 const indexOfActivity = {
 	sedentary: "1.2",
@@ -13,15 +15,29 @@ const indexOfActivity = {
 	moderatelyActive: "1.55",
 	active: "1.725",
 	extremelyActive: "1.9",
-};
+} as const;
 
 export const AddUserForm = () => {
-	const [name, setName] = useState("");
-	const [sex, setSex] = useState<Sex>("male");
-	const [weight, setWeight] = useState("");
-	const [height, setHeight] = useState("");
-	const [age, setAge] = useState("");
-	const [activityLevel, setActivityLevel] = useState(indexOfActivity.sedentary);
+	const {
+		name: prevName,
+		sex: prevSex,
+		weight: prevWeight,
+		height: prevHeight,
+		age: prevAge,
+		activityLevel: prevActivityLevel,
+		id: prevUserId,
+	} = useLocalSearchParams<User>();
+
+	const { data: users, loading, setValue } = useStorage("users");
+
+	const [name, setName] = useState(prevName ?? "");
+	const [sex, setSex] = useState<Sex>(prevSex ?? "male");
+	const [weight, setWeight] = useState(prevWeight ?? "");
+	const [height, setHeight] = useState(prevHeight ?? "");
+	const [age, setAge] = useState(prevAge ?? "");
+	const [activityLevel, setActivityLevel] = useState(
+		prevActivityLevel ?? indexOfActivity.sedentary
+	);
 
 	//active metabolic rate
 	const calculateAMR = Math.floor(
@@ -34,15 +50,30 @@ export const AddUserForm = () => {
 			})
 	);
 	const handleSave = async () => {
-		await setStorageItemAsync(name, {
+		const index = (
+			Object.keys(indexOfActivity) as (keyof typeof indexOfActivity)[]
+		).find((key) => indexOfActivity[key] === activityLevel);
+
+		const newUser = {
+			id: `${name}-${sex}-${weight}-${height}-${age}`,
 			name,
 			sex,
 			weight,
 			height,
 			age,
 			calculateAMR,
-			activityLevel,
-		});
+			activity: {
+				level: activityLevel,
+				index,
+			},
+		};
+
+		if (users && users?.length > 0) {
+			const filteredUsers = users.filter((user) => user.id !== prevUserId);
+			setValue([...filteredUsers, newUser]);
+		} else {
+			setValue([newUser]);
+		}
 		router.back();
 	};
 

@@ -21,7 +21,7 @@ export const calculateMealCaloriesPerPerson = ({
 
 	const { percent } = percentCaloriesMealMap[type];
 
-	return (personDayCalories * percent) / 100;
+	return Math.floor((personDayCalories * percent) / 100);
 };
 
 // Breakfast: 28%

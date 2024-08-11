@@ -1,20 +1,21 @@
 import { useEffect, useCallback, useState } from "react";
 import { setStorageItemAsync, getStorageItemAsync } from "./storageService";
-import { User } from "./types/user";
+import { User } from "./types";
 
 export function useStorage(key: string) {
-	const [data, setData] = useState<User>();
+	const [data, setData] = useState<User[]>();
 	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		const fetchStorageItem = async () => {
-			setLoading(true);
-			const storedValue = await getStorageItemAsync(key);
-			setData(storedValue);
-			setLoading(false);
-		};
-		fetchStorageItem();
+	const fetchStorageItem = useCallback(async () => {
+		setLoading(true);
+		const storedValue = await getStorageItemAsync(key);
+		setData(storedValue);
+		setLoading(false);
 	}, [key]);
+
+	useEffect(() => {
+		fetchStorageItem();
+	}, [fetchStorageItem]);
 
 	const setValue = useCallback(
 		(value: any) => {
@@ -24,5 +25,5 @@ export function useStorage(key: string) {
 		[key]
 	);
 
-	return { data, loading, setValue };
+	return { data, loading, setValue, refetch: fetchStorageItem };
 }
