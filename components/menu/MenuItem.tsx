@@ -57,7 +57,11 @@ export const MenuItem = ({
 		const isNutrientsAsArray = Array.isArray(totalNutrients);
 
 		if (!isNutrientsAsArray) {
-			return <Text>Total weight: {totalNutrients.weight}g</Text>;
+			return (
+				<Text variant='titleMedium'>
+					Total weight: {totalNutrients.weight}g
+				</Text>
+			);
 		}
 
 		const totalWeight = Math.round(

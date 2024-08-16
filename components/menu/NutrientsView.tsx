@@ -26,7 +26,7 @@ export const NutrientsView = ({ nutrients }: NutrientsProps) => {
 			return nutrients.map(({ user }) => {
 				return (
 					<DataTable.Title numeric key={user}>
-						Per {user}
+						For {user}
 					</DataTable.Title>
 				);
 			});

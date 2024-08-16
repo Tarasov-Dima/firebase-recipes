@@ -48,9 +48,10 @@ export const CalorieDistribution = ({ totalNutrients, totalWeight }) => {
 				<Text>For</Text>
 				<Text>Size of portion</Text>
 			</View>
-			{portionPerUser.map((user) => {
+			{portionPerUser.map((user, index) => {
 				return (
 					<View
+						key={user.name + index}
 						style={{
 							backgroundColor: user.color,
 							flex: 1,
@@ -74,7 +75,7 @@ export const CalorieDistribution = ({ totalNutrients, totalWeight }) => {
 					</View>
 				);
 			})}
-			<Text>Total weight: ≈{totalWeight}g</Text>
+			<Text variant='titleMedium'>Total weight: ≈{totalWeight}g</Text>
 		</View>
 	);
 };

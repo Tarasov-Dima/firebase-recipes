@@ -1,5 +1,7 @@
 import { Tabs } from "expo-router";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import Entypo from "@expo/vector-icons/Entypo";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const TabsLayout = () => {
 	return (
@@ -14,12 +16,8 @@ const TabsLayout = () => {
 					tabBarLabelStyle: {
 						fontSize: 14,
 					},
-					tabBarIcon: ({ color, focused }) => (
-						<Ionicons
-							name={focused ? "beer" : "beer-outline"}
-							color={color}
-							size={30}
-						/>
+					tabBarIcon: ({ color }) => (
+						<Entypo name='bowl' size={30} color={color} />
 					),
 				}}
 			/>
@@ -30,11 +28,22 @@ const TabsLayout = () => {
 						fontSize: 14,
 					},
 					tabBarIcon: ({ color, focused }) => (
-						<Ionicons
-							name={focused ? "settings" : "settings-outline"}
+						<MaterialCommunityIcons
+							name={focused ? "account-cog" : "account-cog-outline"}
 							color={color}
 							size={30}
 						/>
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name='grocery'
+				options={{
+					tabBarLabelStyle: {
+						fontSize: 14,
+					},
+					tabBarIcon: ({ color }) => (
+						<MaterialIcons name={"checklist"} color={color} size={30} />
 					),
 				}}
 			/>
