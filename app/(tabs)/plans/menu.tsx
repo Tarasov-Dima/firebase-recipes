@@ -1,19 +1,20 @@
 import { MenuItem } from "@/components/menu/MenuItem";
 import { Ingredient } from "@/types";
-import { calculateTotalNutrients } from "@/utils/calculateNutrients";
 import { useLocalSearchParams } from "expo-router";
-import { useMemo } from "react";
+import { useState } from "react";
 import { ScrollView } from "react-native";
-import { Text } from "react-native-paper";
+import { Switch, Text } from "react-native-paper";
 
 const Menu = () => {
 	const params = useLocalSearchParams();
+	const [premium, setPremium] = useState(false);
+	const onToggleSwitch = () => setPremium(!premium);
 
 	return (
-		<ScrollView style={{ padding: 12 }} contentContainerStyle={{ gap: 12 }}>
-			<Text>Menu: {params.id}</Text>
+		<ScrollView style={{ padding: 16 }} contentContainerStyle={{ gap: 16 }}>
+			<Switch value={premium} onValueChange={onToggleSwitch} />
 			{menu.map((menuItem) => {
-				return <MenuItem key={menuItem.id} {...menuItem} />;
+				return <MenuItem key={menuItem.id} {...menuItem} premium={premium} />;
 			})}
 		</ScrollView>
 	);
@@ -22,7 +23,7 @@ const Menu = () => {
 export default Menu;
 type MenuItem = {
 	id: number;
-	title: "breakfast" | "lunch" | "dinner";
+	title: "Breakfast" | "lunch" | "dinner";
 	name: string;
 	ingredients: Ingredient[];
 	recipe: string;
@@ -31,7 +32,7 @@ type MenuItem = {
 const menu: MenuItem[] = [
 	{
 		id: 12331,
-		title: "breakfast",
+		title: "Breakfast",
 		name: "Cottage Cheese Pancakes",
 		ingredients: [
 			{

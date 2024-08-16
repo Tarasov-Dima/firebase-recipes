@@ -25,9 +25,9 @@ export const NutrientsView = ({ nutrients }: NutrientsProps) => {
 		if (isNutrientsAsArray) {
 			return nutrients.map(({ user }) => {
 				return (
-					<>
-						<DataTable.Title numeric>Per {user}</DataTable.Title>
-					</>
+					<DataTable.Title numeric key={user}>
+						Per {user}
+					</DataTable.Title>
 				);
 			});
 		}
@@ -93,15 +93,13 @@ export const NutrientsView = ({ nutrients }: NutrientsProps) => {
 		});
 	};
 	return (
-		<>
-			<DataTable>
-				<DataTable.Header>
-					<DataTable.Title>{undefined}</DataTable.Title>
-					{renderTitle()}
-				</DataTable.Header>
-				{renderRows()}
-			</DataTable>
-		</>
+		<DataTable>
+			<DataTable.Header>
+				<DataTable.Title>{undefined}</DataTable.Title>
+				{renderTitle()}
+			</DataTable.Header>
+			{renderRows()}
+		</DataTable>
 	);
 };
 

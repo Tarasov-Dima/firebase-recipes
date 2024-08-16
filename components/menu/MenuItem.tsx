@@ -1,27 +1,20 @@
 import React, { useState } from "react";
 import { IngredientsView } from "./IngredientsView";
-import {
-	Card,
-	Divider,
-	SegmentedButtons,
-	Switch,
-	Text,
-} from "react-native-paper";
+import { Card, Divider, SegmentedButtons, Text } from "react-native-paper";
 import { NutrientsView } from "./NutrientsView";
 import { RecipeView } from "./RecipeView";
 import { User, type Ingredient, type Recipe } from "@/types";
-import {
-	calculateIngredientsForCalories,
-	calculateTotalNutrients,
-} from "@/utils/calculateNutrients";
 import { useStorage } from "@/useStorage";
-import { calculateMealCaloriesPerPerson } from "@/utils/calculateMealCaloriesPerPerson";
+import { usersTotalNutrients } from "@/utils/usersTotalNutrients";
+import { useThemeContext } from "@/theme";
+import { CalorieDistribution } from "./CalorieDistribution";
 
 type MenuItemProps = {
-	title: "breakfast" | "lunch" | "dinner";
+	title: "Breakfast" | "lunch" | "dinner";
 	ingredients: Ingredient[];
 	recipe: Recipe;
 	name: string;
+	premium: boolean;
 };
 
 type MenuChoiceType = "ingredients" | "recipe" | "nutrients";
@@ -31,48 +24,16 @@ export const MenuItem = ({
 	ingredients,
 	recipe,
 	name,
+	premium,
 }: MenuItemProps) => {
 	const [choice, setChoice] = useState<MenuChoiceType>("ingredients");
-	const [premium, setPremium] = useState(false);
-
 	const { data: users } = useStorage<User[]>("users");
 
-	const onToggleSwitch = () => setPremium(!premium);
-
-	const usersTotalNutrients = () => {
-		if (!users || users.length === 0 || !premium) {
-			return {
-				mealIngredients: ingredients,
-				totalNutrients: calculateTotalNutrients(ingredients),
-			};
-		}
-		let combinedMealIngredients: Ingredient[] = [];
-
-		const totalNutrientsPerUser = users.map((user) => {
-			const personCaloriesPerMeal = calculateMealCaloriesPerPerson({
-				personDayCalories: user?.calculateAMR,
-				type: "breakfast",
-			});
-			const scaledIngredients = calculateIngredientsForCalories(
-				ingredients,
-				personCaloriesPerMeal
-			);
-
-			combinedMealIngredients =
-				combinedMealIngredients.concat(scaledIngredients);
-
-			return {
-				user: user.name,
-				nutrients: calculateTotalNutrients(scaledIngredients),
-			};
-		});
-		return {
-			mealIngredients: combineIngredients(combinedMealIngredients),
-			totalNutrients: totalNutrientsPerUser,
-		};
-	};
-
-	const { mealIngredients, totalNutrients } = usersTotalNutrients();
+	const { mealIngredients, totalNutrients } = usersTotalNutrients({
+		users,
+		premium,
+		ingredients,
+	});
 
 	const renderContent = () => {
 		switch (choice) {
@@ -106,29 +67,22 @@ export const MenuItem = ({
 		);
 
 		return (
-			<>
-				<Text>Total weight: {totalWeight}g</Text>
-				{totalNutrients.map((item) => {
-					const portionWeightForPerson = Math.round(item.nutrients.weight);
-					const portionPercentForPerson = Math.round(
-						(portionWeightForPerson * 100) / totalWeight
-					);
-					return (
-						<Text key={item.user}>
-							For {item.user}: {portionWeightForPerson}g{" "}
-							{portionPercentForPerson}%
-						</Text>
-					);
-				})}
-			</>
+			<CalorieDistribution
+				totalNutrients={totalNutrients}
+				totalWeight={totalWeight}
+			/>
 		);
 	};
 
 	return (
-		<Card>
-			<Switch value={premium} onValueChange={onToggleSwitch} />
-			<Card.Title title={`${title}: ${name}`} />
-			<Card.Content>
+		<Card style={{ marginBottom: 80 }}>
+			<Card.Title
+				titleVariant='headlineSmall'
+				subtitleVariant='bodyLarge'
+				subtitle={name}
+				title={title}
+			/>
+			<Card.Content style={{ gap: 10 }}>
 				<SegmentedButtons
 					value={choice}
 					onValueChange={handleValueChange}
@@ -139,31 +93,9 @@ export const MenuItem = ({
 					]}
 				/>
 				{renderContent()}
-				<Divider />
+				<Divider bold style={{ marginVertical: 10 }} />
 				{renderPortionWeight()}
 			</Card.Content>
 		</Card>
 	);
-};
-
-const combineIngredients = (ingredients: Ingredient[]): Ingredient[] => {
-	const combined: Record<string, Ingredient> = {};
-
-	ingredients.forEach((ingredient) => {
-		const { name, amount, nutrients_per_100g, weight_per_unit } = ingredient;
-
-		if (!combined[name]) {
-			combined[name] = {
-				amount: { number: 0, type: amount.type },
-				id: ingredient.id,
-				name,
-				nutrients_per_100g,
-				weight_per_unit,
-			};
-		}
-
-		combined[name].amount.number += amount.number;
-	});
-
-	return Object.values(combined);
 };

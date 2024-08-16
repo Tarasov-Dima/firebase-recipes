@@ -19,22 +19,21 @@ const DATA = [
 const PlansTab = () => {
 	const renderItem = ({ item }) => {
 		return (
-			<Card>
-				<Card.Title title={item.title} />
-				<Card.Content>
-					<Text>{item.description}</Text>
-				</Card.Content>
-				<Card.Cover source={Food} />
-				<Link
-					href={{
-						pathname: "/plans/menu",
-						params: { id: item.title },
-					}}
-					asChild
-				>
-					<Button>See menu</Button>
-				</Link>
-			</Card>
+			<Link
+				href={{
+					pathname: "./plans/menu",
+					params: { id: item.title },
+				}}
+				asChild
+			>
+				<Card>
+					<Card.Title title={item.title} />
+					<Card.Content>
+						<Text>{item.description}</Text>
+					</Card.Content>
+					<Card.Cover source={Food} />
+				</Card>
+			</Link>
 		);
 	};
 	return (
@@ -42,8 +41,8 @@ const PlansTab = () => {
 			data={DATA}
 			renderItem={renderItem}
 			estimatedItemSize={200}
-			contentContainerStyle={{ padding: 12 }}
-			ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+			contentContainerStyle={{ padding: 16 }}
+			ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
 		/>
 	);
 };
