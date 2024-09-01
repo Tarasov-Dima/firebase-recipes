@@ -8,8 +8,8 @@ type IngredientsProps = {
 
 export const IngredientsView = ({ rowItems }: IngredientsProps) => {
 	const renderRows = () => {
-		return rowItems.map(({ id, name, amount }) => (
-			<DataTable.Row key={id}>
+		return rowItems.map(({ name, amount }) => (
+			<DataTable.Row key={name}>
 				<DataTable.Cell>{name}</DataTable.Cell>
 				<DataTable.Cell numeric>
 					{Math.round(amount.number)} {amount.type}

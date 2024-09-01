@@ -3,6 +3,7 @@ import { Button, Text, Card } from "react-native-paper";
 import { FlashList } from "@shopify/flash-list";
 import Food from "../../../assets/images/food.jpg";
 import { Link } from "expo-router";
+import { forwardRef } from "react";
 const DATA = [
 	{
 		title: "First Item",
@@ -16,26 +17,32 @@ const DATA = [
 	},
 ];
 
+type Item = {
+	title: string;
+	description: string;
+};
+
+const renderItem = ({ item }: { item: Item }) => {
+	return (
+		<Link
+			href={{
+				pathname: "./plans/menu",
+				params: { id: item.title },
+			}}
+			asChild
+		>
+			<Card>
+				<Card.Title title={item.title} />
+				<Card.Content>
+					<Text>{item.description}</Text>
+				</Card.Content>
+				<Card.Cover source={Food} />
+			</Card>
+		</Link>
+	);
+};
+
 const PlansTab = () => {
-	const renderItem = ({ item }) => {
-		return (
-			<Link
-				href={{
-					pathname: "./plans/menu",
-					params: { id: item.title },
-				}}
-				asChild
-			>
-				<Card>
-					<Card.Title title={item.title} />
-					<Card.Content>
-						<Text>{item.description}</Text>
-					</Card.Content>
-					<Card.Cover source={Food} />
-				</Card>
-			</Link>
-		);
-	};
 	return (
 		<FlashList
 			data={DATA}

@@ -19,8 +19,10 @@ export const useStorage = <T>(key: string) => {
 
 	const setValue = useCallback(
 		(value: any) => {
+			setLoading(true);
 			setData(value);
 			setStorageItemAsync(key, value);
+			setLoading(false);
 		},
 		[key]
 	);

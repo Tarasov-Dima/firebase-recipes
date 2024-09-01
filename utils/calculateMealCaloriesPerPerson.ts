@@ -1,14 +1,14 @@
-type Meals = "breakfast" | "lunch" | "dinner";
+import { type MealVariant } from "@/data/meals";
 
-const percentCaloriesMealMap: Record<Meals, { percent: number }> = {
-	breakfast: { percent: 28 },
-	lunch: { percent: 33 },
-	dinner: { percent: 39 },
+const percentCaloriesMealMap: Record<MealVariant, { percent: number }> = {
+	Breakfast: { percent: 28 },
+	Lunch: { percent: 33 },
+	Dinner: { percent: 39 },
 };
 
 type CalculateMealCaloriesPerPersonProps = {
 	personDayCalories: number | undefined;
-	type: Meals;
+	type: MealVariant;
 };
 
 export const calculateMealCaloriesPerPerson = ({

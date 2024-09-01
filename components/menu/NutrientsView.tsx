@@ -1,9 +1,10 @@
 import React from "react";
 import { DataTable } from "react-native-paper";
 import { type Nutrients } from "@/types";
+import { PreparedDataForUser } from "@/utils/prepareMealDataForUsers";
 
 type NutrientsProps = {
-	nutrients: Nutrients | { user: string; nutrients: Nutrients }[];
+	nutrients: Nutrients | PreparedDataForUser;
 };
 
 type NutrientKey = keyof Nutrients;
@@ -20,24 +21,22 @@ const calculateNutrientPer100Grams = ({
 
 export const NutrientsView = ({ nutrients }: NutrientsProps) => {
 	const isNutrientsAsArray = Array.isArray(nutrients);
+	console.log(isNutrientsAsArray);
 
 	const renderTitle = () => {
 		if (isNutrientsAsArray) {
-			return nutrients.map(({ user }) => {
+			return nutrients.map(({ userName }) => {
 				return (
-					<DataTable.Title numeric key={user}>
-						For {user}
+					<DataTable.Title numeric key={userName}>
+						For {userName}
 					</DataTable.Title>
 				);
 			});
 		}
 
-		const { weight } = nutrients;
 		return (
 			<>
-				<DataTable.Title numeric>
-					Per serving {Math.round(weight)}g
-				</DataTable.Title>
+				<DataTable.Title numeric>Per serving</DataTable.Title>
 				<DataTable.Title numeric>Per 100 g</DataTable.Title>
 			</>
 		);
@@ -45,7 +44,9 @@ export const NutrientsView = ({ nutrients }: NutrientsProps) => {
 
 	const renderRows = () => {
 		if (isNutrientsAsArray) {
-			const allUserNutrients = nutrients.map(({ nutrients }) => nutrients);
+			const allUserNutrients = nutrients.map(
+				({ totalNutrients }) => totalNutrients
+			);
 			const nutrientKeys = Object.keys(allUserNutrients[0]).filter(
 				(key): key is NutrientKey => key !== "weight"
 			);

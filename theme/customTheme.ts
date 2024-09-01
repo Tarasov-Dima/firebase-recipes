@@ -31,9 +31,12 @@ const darkTheme = {
 	colors: {
 		...CombinedDarkTheme.colors,
 		...darkColors,
-		card: "#1E1E1E",
-		border: "#272727",
 	},
 };
+
+type CombinedThemeColors = typeof CombinedLightTheme.colors &
+	typeof lightColors;
+
+export type Colors = CombinedThemeColors;
 
 export { lightTheme, darkTheme };

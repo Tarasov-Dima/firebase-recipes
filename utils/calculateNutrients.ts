@@ -1,6 +1,6 @@
 import type { Ingredient, Nutrients } from "@/types";
 
-const calculateNutrients = ({
+export const calculateNutrients = ({
 	amount,
 	nutrients_per_100g,
 	weight_per_unit,

@@ -3,7 +3,7 @@ import { Nutrients } from "./nutrients";
 type AmountType = "g" | "ml";
 
 export type Ingredient = {
-	id: number;
+	// id: number;
 	name: string;
 	amount: {
 		number: number;
