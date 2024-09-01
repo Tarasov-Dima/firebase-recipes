@@ -11,6 +11,7 @@ import { useStorage } from "@/useStorage";
 import { useCallback } from "react";
 import { FlashList } from "@shopify/flash-list";
 import { User } from "@/types";
+import { ScreenContainer } from "@/components/ScreenContainer";
 
 const SettingsTab = () => {
 	const { data: users, refetch, setValue } = useStorage<User[]>("users");
@@ -75,13 +76,13 @@ const SettingsTab = () => {
 	};
 
 	return (
-		<View style={{ flex: 1 }}>
+		<ScreenContainer withScroll={false} withVerticalPadding={false}>
 			<FlashList
 				data={users ?? []}
 				renderItem={renderItem}
 				estimatedItemSize={200}
-				contentContainerStyle={{ padding: 12 }}
-				ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+				contentContainerStyle={{ paddingVertical: 12 }}
+				ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
 			/>
 			<Link
 				href={{
@@ -98,7 +99,7 @@ const SettingsTab = () => {
 						/>
 					))}
 			</Link>
-		</View>
+		</ScreenContainer>
 	);
 };
 

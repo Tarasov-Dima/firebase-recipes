@@ -8,6 +8,7 @@ import { Picker } from "@react-native-picker/picker";
 import { router, useLocalSearchParams } from "expo-router";
 import { useStorage } from "@/useStorage";
 import { Sex, User } from "@/types/user";
+import { ScreenContainer } from "../ScreenContainer";
 
 const indexOfActivity = {
 	sedentary: "1.2",
@@ -78,7 +79,7 @@ export const AddUserForm = () => {
 	};
 
 	return (
-		<View>
+		<ScreenContainer>
 			<Text>Name</Text>
 			<TextInput value={name} onChangeText={setName} />
 			<Text>Sex</Text>
@@ -149,6 +150,6 @@ export const AddUserForm = () => {
 					</Button>
 				</>
 			)}
-		</View>
+		</ScreenContainer>
 	);
 };

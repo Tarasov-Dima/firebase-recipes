@@ -1,7 +1,6 @@
 import { Tabs } from "expo-router";
 import Entypo from "@expo/vector-icons/Entypo";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const TabsLayout = () => {
 	return (
@@ -42,8 +41,12 @@ const TabsLayout = () => {
 					tabBarLabelStyle: {
 						fontSize: 14,
 					},
-					tabBarIcon: ({ color }) => (
-						<MaterialIcons name={"checklist"} color={color} size={30} />
+					tabBarIcon: ({ color, focused }) => (
+						<MaterialCommunityIcons
+							name={focused ? "basket-check" : "basket-check-outline"}
+							size={30}
+							color={color}
+						/>
 					),
 				}}
 			/>

@@ -1,5 +1,6 @@
 import { BasicMenuItem } from "@/components/menu/BasicMenuItem";
 import { MenuItem } from "@/components/menu/MenuItem";
+import { ScreenContainer } from "@/components/ScreenContainer";
 import { getMealByKey } from "@/data/meals";
 import { User } from "@/types";
 import { useStorage } from "@/useStorage";
@@ -41,7 +42,7 @@ const Menu = () => {
 	});
 
 	return (
-		<ScrollView style={{ padding: 16 }} contentContainerStyle={{ gap: 16 }}>
+		<ScreenContainer>
 			<Switch value={premium} onValueChange={onToggleSwitch} />
 			<MenuItem
 				preparedDataForUsers={preparedDataForUsers}
@@ -49,7 +50,7 @@ const Menu = () => {
 				type={type}
 				recipe={dishes[0].recipe}
 			/>
-		</ScrollView>
+		</ScreenContainer>
 	);
 };
 
