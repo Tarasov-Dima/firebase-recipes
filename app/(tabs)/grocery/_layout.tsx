@@ -1,3 +1,4 @@
+import { useGroceryList } from "@/storage/useGroceryList";
 import { Stack } from "expo-router";
 
 const StackLayout = () => {
@@ -5,11 +6,7 @@ const StackLayout = () => {
 		<Stack>
 			<Stack.Screen
 				name='index'
-				options={{ headerShown: true, headerTitle: "Settings" }}
-			/>
-			<Stack.Screen
-				name='user'
-				options={{ headerShown: true, headerTitle: "User" }}
+				options={{ headerShown: true, headerTitle: "Grocery" }}
 			/>
 		</Stack>
 	);

@@ -1,7 +1,6 @@
 import { calculateBMR } from "@/utils/calculateBMR";
 import React, { useState } from "react";
-import { View, Text } from "react-native";
-import { Button, SegmentedButtons, TextInput } from "react-native-paper";
+import { Button, SegmentedButtons, TextInput, Text } from "react-native-paper";
 import { LabelInput } from "./LabelInput";
 import { Picker } from "@react-native-picker/picker";
 
@@ -9,6 +8,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useStorage } from "@/useStorage";
 import { Sex, User } from "@/types/user";
 import { ScreenContainer } from "../ScreenContainer";
+import { useThemeContext } from "@/theme";
 
 const indexOfActivity = {
 	sedentary: "1.2",
@@ -18,7 +18,16 @@ const indexOfActivity = {
 	extremelyActive: "1.9",
 } as const;
 
+const activityDescriptions = {
+	sedentary: "Sedentary (little or no exercise)",
+	lightlyActive: "Lightly active (exercise 1–3 days/week)",
+	moderatelyActive: "Moderately active (exercise 3–5 days/week)",
+	active: "Active (exercise 6–7 days/week)",
+	extremelyActive: "Extremely active (hard exercise 6–7 days/week)",
+};
+
 export const AddUserForm = () => {
+	const { theme } = useThemeContext();
 	const {
 		name: prevName,
 		sex: prevSex,
@@ -116,31 +125,25 @@ export const AddUserForm = () => {
 				value={age}
 			/>
 			<Text>Level of activity</Text>
+			{/* TODD: change this shitty component */}
 			<Picker
 				selectedValue={activityLevel}
 				onValueChange={setActivityLevel}
-				mode={"dialog"}
+				mode='dropdown'
+				style={{ backgroundColor: theme.colors.background }}
+				dropdownIconColor={theme.colors.onBackground}
+				numberOfLines={2}
 			>
-				<Picker.Item
-					label='Sedentary (little or no exercise)'
-					value={indexOfActivity.sedentary}
-				/>
-				<Picker.Item
-					label='Lightly active (exercise 1–3 days/week)'
-					value={indexOfActivity.lightlyActive}
-				/>
-				<Picker.Item
-					label='Moderately active (exercise 3–5 days/week)'
-					value={indexOfActivity.moderatelyActive}
-				/>
-				<Picker.Item
-					label='Active (exercise 6–7 days/week)'
-					value={indexOfActivity.active}
-				/>
-				<Picker.Item
-					label='Extremely active (hard exercise 6–7 days/week)'
-					value={indexOfActivity.extremelyActive}
-				/>
+				{Object.entries(indexOfActivity).map(([activity, value]) => {
+					return (
+						<PickerItem
+							key={activity}
+							isSelected={activityLevel === activity}
+							label={activityDescriptions[activity]}
+							value={value}
+						/>
+					);
+				})}
 			</Picker>
 			{!!calculateAMR && (
 				<>
@@ -151,5 +154,18 @@ export const AddUserForm = () => {
 				</>
 			)}
 		</ScreenContainer>
+	);
+};
+
+const PickerItem = ({ label, value, isSelected }) => {
+	const { theme } = useThemeContext();
+
+	return (
+		<Picker.Item
+			label={label}
+			value={value}
+			color={theme.colors.text}
+			style={{ backgroundColor: theme.colors.error }}
+		/>
 	);
 };

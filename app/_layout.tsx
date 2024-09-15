@@ -3,23 +3,27 @@ import { Stack } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { View } from "react-native";
 import { ThemeProvider } from "@/theme";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 const RootLayout = () => {
 	return (
-		<ThemeProvider>
-			<SafeAreaProvider>
-				<View style={{ flex: 1, backgroundColor: "red" }}>
-					<Stack>
-						<Stack.Screen
-							name='(tabs)'
-							options={{
-								headerShown: false,
-							}}
-						/>
-					</Stack>
-				</View>
-			</SafeAreaProvider>
-		</ThemeProvider>
+		<GestureHandlerRootView style={{ flex: 1 }}>
+			<ThemeProvider>
+				<SafeAreaProvider>
+					<BottomSheetModalProvider>
+						<Stack>
+							<Stack.Screen
+								name='(tabs)'
+								options={{
+									headerShown: false,
+								}}
+							/>
+						</Stack>
+					</BottomSheetModalProvider>
+				</SafeAreaProvider>
+			</ThemeProvider>
+		</GestureHandlerRootView>
 	);
 };
 

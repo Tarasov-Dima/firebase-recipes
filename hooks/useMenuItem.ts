@@ -20,6 +20,16 @@ export const useMenuItem = ({ preparedDataForUsers }: UseMenuItemParams) => {
 		[] as Ingredient[]
 	);
 
+	if (preparedDataForUsers.length === 1) {
+		console.log("here");
+		return {
+			allIngredients,
+			totalWeight: Math.round(selectedUser.totalNutrients.weight),
+			selectedUserNutrients: preparedDataForUsers,
+			selectedUserName,
+			setSelectedUserName,
+		};
+	}
 	const totalWeight =
 		selectedUserName === "All"
 			? Math.round(

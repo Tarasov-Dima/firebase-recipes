@@ -1,105 +1,82 @@
-import {
-	FAB,
-	Text,
-	Card,
-	IconButton,
-	TouchableRipple,
-} from "react-native-paper";
-import { Link, useFocusEffect } from "expo-router";
-import { View } from "react-native";
-import { useStorage } from "@/useStorage";
-import { useCallback } from "react";
-import { FlashList } from "@shopify/flash-list";
-import { User } from "@/types";
+import { useEffect, useState } from "react";
+import { useGroceryList } from "@/storage/useGroceryList";
+import { useThemeContext } from "@/theme";
+import { Alert } from "react-native";
+import { GroceryList } from "@/components/grocery/GroceryList";
+import { FAB } from "react-native-paper";
 
-const SettingsTab = () => {
-	const { data: users, refetch, setValue } = useStorage<User[]>("users");
+const GroceryTab = () => {
+	const groceries = useGroceryList((state) => state.groceries);
+	const resetGroceries = useGroceryList((state) => state.resetGroceries);
 
-	useFocusEffect(
-		useCallback(() => {
-			refetch();
-		}, [refetch])
-	);
+	const [selectedGroceries, setSelectedGroceries] = useState<number[]>([]);
 
-	const onDeleteUser = (id: User["id"]) => {
-		const filteredUsers = users?.filter((user) => user.id !== id);
-		setValue(filteredUsers);
+	const handleSelectGrocery = (newGroceryId: number) => {
+		setSelectedGroceries((prevGroceries) => {
+			if (prevGroceries.some((groceryId) => groceryId === newGroceryId)) {
+				return prevGroceries.filter((groceryId) => groceryId !== newGroceryId);
+			} else {
+				return [...prevGroceries, newGroceryId];
+			}
+		});
 	};
 
-	const renderItem = ({ item }: { item: User | undefined }) => {
-		if (!item) {
-			return null;
+	const resetAll = () => {
+		resetGroceries();
+		setSelectedGroceries([]);
+	};
+
+	useEffect(() => {
+		if (groceries.length > 0 && selectedGroceries.length === groceries.length) {
+			groceryListAlert({
+				title: "All Groceries Selected",
+				subtitle: "You got all groceries. Do you want to clear the list?",
+				onPress: resetAll,
+			});
 		}
+	}, [selectedGroceries, groceries.length]);
 
-		const { name, id, age, height, weight, sex, calculateAMR, activity } = item;
-		return (
-			<Link
-				href={{
-					pathname: "./settings/user",
-					params: {
-						id,
-						name,
-						age,
-						height,
-						weight,
-						sex,
-						activityLevel: activity.level,
-					},
-				}}
-				asChild
-			>
-				<TouchableRipple key={id}>
-					<Card mode='outlined'>
-						<Card.Title
-							title={name}
-							right={() => (
-								<IconButton
-									size={24}
-									icon='delete'
-									onPress={() => onDeleteUser(id)}
-								/>
-							)}
-						/>
-						<Card.Content>
-							<Text variant='titleLarge'>User data:</Text>
-							<Text>Age: {age} years</Text>
-							<Text>Height: {height} cm</Text>
-							<Text>Weight: {weight} kg</Text>
-							<Text>Sex: {sex}</Text>
-							<Text>Energy per day: {calculateAMR} Cal</Text>
-						</Card.Content>
-					</Card>
-				</TouchableRipple>
-			</Link>
-		);
-	};
-
+	const showClearList = groceries.length > 0;
 	return (
-		<View style={{ flex: 1 }}>
-			<FlashList
-				data={users ?? []}
-				renderItem={renderItem}
-				estimatedItemSize={200}
-				contentContainerStyle={{ padding: 12 }}
-				ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+		<>
+			<GroceryList
+				data={groceries}
+				selectedGroceries={selectedGroceries}
+				handleSelectGrocery={handleSelectGrocery}
 			/>
-			<Link
-				href={{
-					pathname: "./settings/user",
-				}}
-				asChild
-			>
-				{!users ||
-					(users?.length < 3 && (
-						<FAB
-							icon='plus'
-							style={{ position: "absolute", margin: 16, right: 0, bottom: 0 }}
-							label='add user'
-						/>
-					))}
-			</Link>
-		</View>
+			{showClearList && (
+				<FAB
+					icon='basket-remove'
+					style={{ position: "absolute", margin: 16, right: 0, bottom: 0 }}
+					onPress={() =>
+						groceryListAlert({
+							title: "Do you want to clear the list?",
+							subtitle: "",
+							onPress: resetAll,
+						})
+					}
+				/>
+			)}
+		</>
 	);
 };
 
-export default SettingsTab;
+export default GroceryTab;
+
+const groceryListAlert = ({ title, subtitle, onPress }) => {
+	Alert.alert(
+		title,
+		subtitle,
+		[
+			{
+				text: "No",
+				style: "cancel",
+			},
+			{
+				text: "Yes",
+				onPress: onPress,
+			},
+		],
+		{ cancelable: false }
+	);
+};

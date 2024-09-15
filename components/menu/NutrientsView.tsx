@@ -21,7 +21,6 @@ const calculateNutrientPer100Grams = ({
 
 export const NutrientsView = ({ nutrients }: NutrientsProps) => {
 	const isNutrientsAsArray = Array.isArray(nutrients);
-	console.log(isNutrientsAsArray);
 
 	const renderTitle = () => {
 		if (isNutrientsAsArray) {

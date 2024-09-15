@@ -8,7 +8,11 @@ import { NutrientsView } from "./NutrientsView";
 
 type MenuChoiceType = "ingredients" | "recipe" | "nutrients";
 
-export const BasicMenuItem = ({ dishes, type }: Meal) => {
+export const BasicMenuItem = ({
+	dishes,
+	type,
+	onAddIngredientsToList,
+}: Meal) => {
 	const [choice, setChoice] = useState<MenuChoiceType>("ingredients");
 
 	const handleValueChange = (value: string) => {

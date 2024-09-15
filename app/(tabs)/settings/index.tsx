@@ -75,6 +75,8 @@ const SettingsTab = () => {
 		);
 	};
 
+	const showFab = !users || users?.length < 3;
+
 	return (
 		<ScreenContainer withScroll={false} withVerticalPadding={false}>
 			<FlashList
@@ -90,14 +92,13 @@ const SettingsTab = () => {
 				}}
 				asChild
 			>
-				{!users ||
-					(users?.length < 3 && (
-						<FAB
-							icon='plus'
-							style={{ position: "absolute", margin: 16, right: 0, bottom: 0 }}
-							label='add user'
-						/>
-					))}
+				{showFab && (
+					<FAB
+						icon='plus'
+						style={{ position: "absolute", margin: 16, right: 0, bottom: 0 }}
+						label='add user'
+					/>
+				)}
 			</Link>
 		</ScreenContainer>
 	);

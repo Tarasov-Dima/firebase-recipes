@@ -7,11 +7,13 @@ import {
 } from "./calculateNutrients";
 import { Dish } from "@/data/dishes";
 import { type MealVariant } from "@/data/meals";
+import { dishes } from "../data/dishes";
 
 type PrepareMealDataForUsersParams = {
-	users: User[];
+	users: User[] | undefined | null;
 	dish: Dish;
 	mealType: MealVariant;
+	premium: boolean;
 };
 
 type PreparedDishData = {
@@ -30,7 +32,18 @@ export const prepareMealDataForUsers = ({
 	users,
 	dish,
 	mealType,
+	premium,
 }: PrepareMealDataForUsersParams): PreparedDataForUser => {
+	if (!users || !premium) {
+		const dishes = prepareDishes({ dish });
+		return [
+			{
+				userName: "All",
+				dishes: dishes,
+				totalNutrients: calculateTotalNutrientsForMeal(dishes),
+			},
+		];
+	}
 	let allUsersCalories = 0;
 
 	const preparedDataForUsers = users.map((user) => {
@@ -41,7 +54,7 @@ export const prepareMealDataForUsers = ({
 
 		allUsersCalories += personCaloriesPerMeal;
 
-		const userDishes = prepareDishes(personCaloriesPerMeal, dish);
+		const userDishes = prepareDishes({ calories: personCaloriesPerMeal, dish });
 
 		return {
 			userName: user.name,
@@ -50,7 +63,7 @@ export const prepareMealDataForUsers = ({
 		};
 	});
 
-	const allUserDishes = prepareDishes(allUsersCalories, dish);
+	const allUserDishes = prepareDishes({ calories: allUsersCalories, dish });
 
 	const allUser = {
 		userName: "All",
@@ -61,13 +74,18 @@ export const prepareMealDataForUsers = ({
 	return [allUser, ...preparedDataForUsers];
 };
 
-const prepareDishes = (calories: number, dish: Dish): PreparedDishData => {
+const prepareDishes = ({
+	calories,
+	dish,
+}: {
+	calories?: number;
+	dish: Dish;
+}): PreparedDishData => {
 	const totalIngredients = [...dish.ingredients, ...(dish.sides || [])];
 
-	const scaledIngredients = calculateIngredientsForCalories(
-		totalIngredients,
-		calories
-	);
+	const scaledIngredients = !!calories
+		? calculateIngredientsForCalories(totalIngredients, calories)
+		: totalIngredients;
 
 	const preparedSides =
 		dish.sides?.map((side) => {

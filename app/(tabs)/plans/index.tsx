@@ -1,12 +1,11 @@
 import { View } from "react-native";
-import { Button, Text, Card } from "react-native-paper";
+import { Text, Card } from "react-native-paper";
 import { FlashList } from "@shopify/flash-list";
-import Food from "../../../assets/images/food.jpg";
 import { Link } from "expo-router";
-import { forwardRef } from "react";
+
 const DATA = [
 	{
-		title: "First Item",
+		title: "Basic plan",
 		description:
 			"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis nam ducimus labore quia. Dicta blanditiis non neque cum, excepturi sapiente repellat dolorem exercitationem suscipit modi similique, eaque, perferendis tempore quo.",
 	},
@@ -26,7 +25,7 @@ const renderItem = ({ item }: { item: Item }) => {
 	return (
 		<Link
 			href={{
-				pathname: "./plans/menu",
+				pathname: "../plans/menu",
 				params: { id: item.title },
 			}}
 			asChild
@@ -36,7 +35,6 @@ const renderItem = ({ item }: { item: Item }) => {
 				<Card.Content>
 					<Text>{item.description}</Text>
 				</Card.Content>
-				<Card.Cover source={Food} />
 			</Card>
 		</Link>
 	);
