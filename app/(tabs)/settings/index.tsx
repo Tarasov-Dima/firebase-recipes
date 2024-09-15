@@ -32,20 +32,13 @@ const SettingsTab = () => {
 			return null;
 		}
 
-		const { name, id, age, height, weight, sex, calculateAMR, activity } = item;
+		const { name, id, age, height, weight, sex, calculateAMR, activityLevel } =
+			item;
 		return (
 			<Link
 				href={{
 					pathname: "./settings/user",
-					params: {
-						id,
-						name,
-						age,
-						height,
-						weight,
-						sex,
-						activityLevel: activity.level,
-					},
+					params: item,
 				}}
 				asChild
 			>

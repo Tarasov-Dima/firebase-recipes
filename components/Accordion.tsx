@@ -1,16 +1,19 @@
-import { useThemeContext } from "@/theme";
 import { useState } from "react";
 import { View } from "react-native";
-import {
-	Icon,
-	TouchableRipple,
-	Text,
-	Chip,
-	Portal,
-	Dialog,
-} from "react-native-paper";
+import { Text, Chip, Portal, Dialog } from "react-native-paper";
 
-export const Accordion = ({ data, selected, setSelected }) => {
+type AccordionProps<T extends string> = {
+	title: string;
+	data: Record<T, string>;
+	selected: T;
+	setSelected: (key: T) => void;
+};
+export const Accordion = <T extends string>({
+	title,
+	data,
+	selected,
+	setSelected,
+}: AccordionProps<T>) => {
 	const [expanded, setExpanded] = useState(false);
 	const handlePress = () => setExpanded(!expanded);
 
@@ -18,32 +21,33 @@ export const Accordion = ({ data, selected, setSelected }) => {
 		setExpanded(false);
 	};
 
-	const onHandleSelect = (name) => {
+	const onHandleSelect = (key: T) => {
 		handleHide();
-		setSelected(name);
+		setSelected(key);
 	};
 
-	const isDisable = data.length === 1;
+	const isDisable = Object.keys(data).length === 2;
 
 	return (
 		<View style={{ gap: 6 }}>
 			<View style={{ flexDirection: "row", alignItems: "center" }}>
-				<Text>Show for: </Text>
-				<Chip onPress={isDisable ? undefined : handlePress}>{selected}</Chip>
+				<Text>{title}</Text>
+				<Chip onPress={isDisable ? undefined : handlePress}>
+					{data[selected]}
+				</Chip>
 			</View>
 			<Portal>
 				<Dialog visible={expanded} onDismiss={handleHide}>
 					<Dialog.Content style={{ gap: 6 }}>
-						{data.map((item) => {
-							return (
-								<ListItem
-									key={item}
-									title={item}
-									onHandleSelect={onHandleSelect}
-									selected={selected}
-								/>
-							);
-						})}
+						{Object.entries(data).map(([key, value]) => (
+							<ListItem
+								key={key}
+								itemKey={key as T}
+								title={value as string}
+								onHandleSelect={onHandleSelect}
+								selected={selected}
+							/>
+						))}
 					</Dialog.Content>
 				</Dialog>
 			</Portal>
@@ -51,20 +55,26 @@ export const Accordion = ({ data, selected, setSelected }) => {
 	);
 };
 
-const ListItem = ({ title, selected, onHandleSelect }) => {
-	const { theme } = useThemeContext();
+type ListItemProps<T extends string> = {
+	itemKey: T;
+	title: string;
+	selected: T;
+	onHandleSelect: (key: T) => void;
+};
 
-	const isSelected = title === selected;
-
-	const onPress = () => {
-		onHandleSelect(title);
-	};
+const ListItem = <T extends string>({
+	itemKey,
+	title,
+	selected,
+	onHandleSelect,
+}: ListItemProps<T>) => {
+	const isSelected = itemKey === selected;
 
 	return (
 		<Chip
 			icon={isSelected ? "check" : undefined}
 			mode={isSelected ? "flat" : "outlined"}
-			onPress={onPress}
+			onPress={() => onHandleSelect(itemKey)}
 		>
 			{title}
 		</Chip>

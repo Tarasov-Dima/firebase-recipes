@@ -64,8 +64,6 @@ const Menu = () => {
 
 	// TODO: fix condition
 
-	const menuUsers = preparedDataForUsers.map((user) => user.userName);
-
 	const selectedGroceries = allIngredients
 		.filter((ingredient) => {
 			return unselectedGroceries.some((id) => id === ingredient.id);
@@ -90,6 +88,12 @@ const Menu = () => {
 		bottomSheetRef.current?.close();
 		setUnselectedGroceries([]);
 	};
+	const userNames = preparedDataForUsers.map((user) => user.userName);
+
+	const accordionData = userNames.reduce((acc, name) => {
+		acc[name] = name;
+		return acc;
+	}, {} as Record<string, string>);
 
 	return (
 		<>
@@ -100,7 +104,7 @@ const Menu = () => {
 					totalWeight={totalWeight}
 					selectedUserNutrients={selectedUserNutrients}
 					selectedUserName={selectedUserName}
-					users={menuUsers}
+					accordionData={accordionData}
 					setSelectedUserName={setSelectedUserName}
 					dishName={dishes[0].name}
 					type={type}

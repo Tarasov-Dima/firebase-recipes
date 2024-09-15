@@ -2,32 +2,47 @@ import { calculateBMR } from "@/utils/calculateBMR";
 import React, { useState } from "react";
 import { Button, SegmentedButtons, TextInput, Text } from "react-native-paper";
 import { LabelInput } from "./LabelInput";
-import { Picker } from "@react-native-picker/picker";
-
 import { router, useLocalSearchParams } from "expo-router";
 import { useStorage } from "@/useStorage";
-import { Sex, User } from "@/types/user";
+import { activityLevelsName, Sex, User } from "@/types/user";
 import { ScreenContainer } from "../ScreenContainer";
-import { useThemeContext } from "@/theme";
+import { Accordion } from "../Accordion";
 
-const indexOfActivity = {
-	sedentary: "1.2",
-	lightlyActive: "1.375",
-	moderatelyActive: "1.55",
-	active: "1.725",
-	extremelyActive: "1.9",
-} as const;
+type Activity = {
+	index: string;
+	name: string;
+	description: string;
+};
 
-const activityDescriptions = {
-	sedentary: "Sedentary (little or no exercise)",
-	lightlyActive: "Lightly active (exercise 1–3 days/week)",
-	moderatelyActive: "Moderately active (exercise 3–5 days/week)",
-	active: "Active (exercise 6–7 days/week)",
-	extremelyActive: "Extremely active (hard exercise 6–7 days/week)",
+const activityLevels: Record<string, Activity> = {
+	sedentary: {
+		index: "1.2",
+		name: "Sedentary",
+		description: "(little or no exercise)",
+	},
+	lightlyActive: {
+		index: "1.375",
+		name: "Lightly active",
+		description: "(exercise 1–3 days/week)",
+	},
+	moderatelyActive: {
+		index: "1.55",
+		name: "Moderately active",
+		description: "(exercise 3–5 days/week)",
+	},
+	active: {
+		index: "1.725",
+		name: "Active",
+		description: "(exercise 6–7 days/week)",
+	},
+	extremelyActive: {
+		index: "1.9",
+		name: "Extremely active",
+		description: "(hard exercise 6–7 days/week)",
+	},
 };
 
 export const AddUserForm = () => {
-	const { theme } = useThemeContext();
 	const {
 		name: prevName,
 		sex: prevSex,
@@ -38,20 +53,22 @@ export const AddUserForm = () => {
 		id: prevUserId,
 	} = useLocalSearchParams<User>();
 
-	const { data: users, loading, setValue } = useStorage<User[]>("users");
+	const { data: users, setValue } = useStorage<User[]>("users");
 
 	const [name, setName] = useState(prevName ?? "");
 	const [sex, setSex] = useState<Sex>(prevSex ?? "male");
 	const [weight, setWeight] = useState(prevWeight ?? "");
 	const [height, setHeight] = useState(prevHeight ?? "");
 	const [age, setAge] = useState(prevAge ?? "");
-	const [activityLevel, setActivityLevel] = useState(
-		prevActivityLevel ?? indexOfActivity.sedentary
+
+	const [activityLevel, setActivityLevel] = useState<User["activityLevel"]>(
+		prevActivityLevel ?? "sedentary"
 	);
 
 	//active metabolic rate
+	const activityLevelIndex = activityLevels[activityLevel].index;
 	const calculateAMR = Math.floor(
-		Number(activityLevel) *
+		Number(activityLevelIndex) *
 			calculateBMR({
 				sex,
 				weight: Number(weight),
@@ -60,10 +77,6 @@ export const AddUserForm = () => {
 			})
 	);
 	const handleSave = async () => {
-		const index = (
-			Object.keys(indexOfActivity) as (keyof typeof indexOfActivity)[]
-		).find((key) => indexOfActivity[key] === activityLevel);
-
 		const newUser = {
 			id: `${name}-${sex}-${weight}-${height}-${age}`,
 			name,
@@ -72,10 +85,7 @@ export const AddUserForm = () => {
 			height,
 			age,
 			calculateAMR,
-			activity: {
-				level: activityLevel,
-				index,
-			},
+			activityLevel,
 		};
 
 		if (users && users?.length > 0) {
@@ -124,27 +134,12 @@ export const AddUserForm = () => {
 				onChange={setAge}
 				value={age}
 			/>
-			<Text>Level of activity</Text>
-			{/* TODD: change this shitty component */}
-			<Picker
-				selectedValue={activityLevel}
-				onValueChange={setActivityLevel}
-				mode='dropdown'
-				style={{ backgroundColor: theme.colors.background }}
-				dropdownIconColor={theme.colors.onBackground}
-				numberOfLines={2}
-			>
-				{Object.entries(indexOfActivity).map(([activity, value]) => {
-					return (
-						<PickerItem
-							key={activity}
-							isSelected={activityLevel === activity}
-							label={activityDescriptions[activity]}
-							value={value}
-						/>
-					);
-				})}
-			</Picker>
+			<Accordion
+				title='Level of activity: '
+				data={activityLevelsName}
+				selected={activityLevel}
+				setSelected={setActivityLevel}
+			/>
 			{!!calculateAMR && (
 				<>
 					<Text>{calculateAMR} calories per day</Text>
@@ -154,18 +149,5 @@ export const AddUserForm = () => {
 				</>
 			)}
 		</ScreenContainer>
-	);
-};
-
-const PickerItem = ({ label, value, isSelected }) => {
-	const { theme } = useThemeContext();
-
-	return (
-		<Picker.Item
-			label={label}
-			value={value}
-			color={theme.colors.text}
-			style={{ backgroundColor: theme.colors.error }}
-		/>
 	);
 };

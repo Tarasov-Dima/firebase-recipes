@@ -25,7 +25,7 @@ export const MenuItem = ({
 	selectedUserNutrients,
 	selectedUserName,
 	setSelectedUserName,
-	users,
+	accordionData,
 	recipe,
 	type,
 	dishName,
@@ -50,7 +50,8 @@ export const MenuItem = ({
 
 				<Card.Content style={{ gap: 10 }}>
 					<Accordion
-						data={users}
+						data={accordionData}
+						title='Show for: '
 						selected={selectedUserName}
 						setSelected={setSelectedUserName}
 					/>

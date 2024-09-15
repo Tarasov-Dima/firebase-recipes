@@ -8,18 +8,8 @@ const TabsLayout = () => {
 			screenOptions={{
 				headerShown: false,
 			}}
+			initialRouteName='plans'
 		>
-			<Tabs.Screen
-				name='plans'
-				options={{
-					tabBarLabelStyle: {
-						fontSize: 14,
-					},
-					tabBarIcon: ({ color }) => (
-						<Entypo name='bowl' size={30} color={color} />
-					),
-				}}
-			/>
 			<Tabs.Screen
 				name='settings'
 				options={{
@@ -35,6 +25,18 @@ const TabsLayout = () => {
 					),
 				}}
 			/>
+			<Tabs.Screen
+				name='plans'
+				options={{
+					tabBarLabelStyle: {
+						fontSize: 14,
+					},
+					tabBarIcon: ({ color }) => (
+						<Entypo name='bowl' size={30} color={color} />
+					),
+				}}
+			/>
+
 			<Tabs.Screen
 				name='grocery'
 				options={{
