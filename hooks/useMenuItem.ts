@@ -21,7 +21,6 @@ export const useMenuItem = ({ preparedDataForUsers }: UseMenuItemParams) => {
 	);
 
 	if (preparedDataForUsers.length === 1) {
-		console.log("here");
 		return {
 			allIngredients,
 			totalWeight: Math.round(selectedUser.totalNutrients.weight),

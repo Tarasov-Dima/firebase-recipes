@@ -7,15 +7,11 @@ import { getMealByKey } from "@/data/meals";
 import { User } from "@/types";
 import { useStorage } from "@/useStorage";
 import { prepareMealDataForUsers } from "@/utils/prepareMealDataForUsers";
-import {
-	BottomSheetModal,
-	BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import { ActivityIndicator, Button, FAB, Switch } from "react-native-paper";
-import { ingredients } from "../../../data/ingredients";
 import { useMenuItem } from "@/hooks/useMenuItem";
 import { useGroceryList } from "@/storage/useGroceryList";
 
@@ -61,8 +57,6 @@ const Menu = () => {
 			</View>
 		);
 	}
-
-	// TODO: fix condition
 
 	const selectedGroceries = allIngredients
 		.filter((ingredient) => {
