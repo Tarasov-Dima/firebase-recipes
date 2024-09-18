@@ -1,10 +1,9 @@
 import React from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import { GroceryListItem } from "./GroceryListItem";
-import { Icon } from "react-native-paper";
-import { useThemeContext } from "@/theme";
 import { Ingredient } from "@/types";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
+import { ListEmptyComponent } from "./ListEmptyComponent";
 
 type GroceryListProps = {
 	data: Ingredient[];
@@ -40,10 +39,10 @@ export const GroceryList = ({
 		return (
 			<BottomSheetFlatList
 				data={data}
-				// keyExtractor={(i) => i}
 				renderItem={renderItem}
 				contentContainerStyle={{ padding: 12, flex: 1 }}
 				ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
+				ListEmptyComponent={ListEmptyComponent}
 			/>
 		);
 	}
@@ -55,24 +54,5 @@ export const GroceryList = ({
 			contentContainerStyle={{ padding: 12 }}
 			ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
 		/>
-	);
-};
-
-const ListEmptyComponent = () => {
-	const { theme } = useThemeContext();
-
-	return (
-		<View
-			style={{
-				alignItems: "center",
-				marginTop: "50%",
-			}}
-		>
-			<Icon
-				source={"basket-off-outline"}
-				size={100}
-				color={theme.colors.secondary}
-			/>
-		</View>
 	);
 };

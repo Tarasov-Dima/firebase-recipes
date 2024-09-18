@@ -1,22 +1,29 @@
-import { BottomSheet } from "@/components/BottomSheet";
-import { GroceryList } from "@/components/grocery/GroceryList";
-import { BasicMenuItem } from "@/components/menu/BasicMenuItem";
+import { BottomSheetGroceryList } from "@/components/grocery/BottomSheetGroceryList";
 import { MenuItem } from "@/components/menu/MenuItem";
 import { ScreenContainer } from "@/components/ScreenContainer";
 import { getMealByKey } from "@/data/meals";
 import { User } from "@/types";
 import { useStorage } from "@/useStorage";
 import { prepareMealDataForUsers } from "@/utils/prepareMealDataForUsers";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import {
+	BottomSheetModal,
+	type BottomSheetModalRef,
+} from "@/components/BottomSheetModal";
 import { useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
 import { View } from "react-native";
 import { ActivityIndicator, Button, FAB, Switch } from "react-native-paper";
 import { useMenuItem } from "@/hooks/useMenuItem";
 import { useGroceryList } from "@/storage/useGroceryList";
+import {
+	SafeAreaView,
+	useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 const Menu = () => {
 	const params = useLocalSearchParams();
+	const { bottom } = useSafeAreaInsets();
+
 	const [premium, setPremium] = useState(true);
 
 	const onToggleSwitch = () => setPremium(!premium);
@@ -26,7 +33,7 @@ const Menu = () => {
 
 	const meal = getMealByKey("firstBreakfast");
 
-	const bottomSheetRef = useRef<BottomSheetModal>(null);
+	const bottomSheetRef = useRef<BottomSheetModalRef>(null);
 
 	const { dishes, type, id } = meal;
 
@@ -47,7 +54,7 @@ const Menu = () => {
 	const addIngredients = useGroceryList((state) => state.addIngredients);
 
 	const openBottomSheet = () => {
-		bottomSheetRef.current?.expand();
+		bottomSheetRef.current?.present();
 	};
 
 	if (loading || !meal) {
@@ -110,18 +117,28 @@ const Menu = () => {
 				style={{ position: "absolute", margin: 16, right: 0, bottom: 0 }}
 				onPress={openBottomSheet}
 			/>
-			<BottomSheet ref={bottomSheetRef}>
-				<GroceryList
-					data={allIngredients}
-					handleSelectGrocery={onAddToUnselectedGroceries}
-					selectedGroceries={selectedGroceries}
-					selectedType='lineThrough'
-					isBottomSheet
-				/>
-				<Button mode='contained' onPress={onAddToGroceryList}>
-					Add to grocery list
-				</Button>
-			</BottomSheet>
+			<BottomSheetModal ref={bottomSheetRef}>
+				<View
+					style={{
+						flex: 1,
+						marginBottom: bottom,
+						gap: 8,
+						paddingHorizontal: 8,
+					}}
+				>
+					<View style={{ flex: 1, marginHorizontal: -8 }}>
+						<BottomSheetGroceryList
+							data={allIngredients}
+							handleSelectGrocery={onAddToUnselectedGroceries}
+							selectedGroceries={selectedGroceries}
+							selectedType='lineThrough'
+						/>
+					</View>
+					<Button mode='contained' onPress={onAddToGroceryList}>
+						Add to grocery list
+					</Button>
+				</View>
+			</BottomSheetModal>
 		</>
 	);
 };

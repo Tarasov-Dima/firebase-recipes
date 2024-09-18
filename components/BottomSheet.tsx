@@ -1,9 +1,5 @@
 import React, { forwardRef, ReactNode } from "react";
-import BottomSheetModal, {
-	BottomSheetView,
-	BottomSheetScrollView,
-	BottomSheetModalProps,
-} from "@gorhom/bottom-sheet";
+import BottomSheetModal, { BottomSheetModalProps } from "@gorhom/bottom-sheet";
 import { useThemeContext } from "@/theme";
 
 type BottomSheetProps = BottomSheetModalProps & {

@@ -38,68 +38,62 @@ export const MenuItem = ({
 	};
 
 	return (
-		<View>
-			<Card style={{ marginBottom: 80 }}>
-				<Card.Title
-					titleVariant='headlineSmall'
-					subtitleVariant='bodyLarge'
-					subtitle={dishName}
-					subtitleNumberOfLines={3}
-					title={type}
-				/>
+		<Card style={{ marginBottom: 80 }}>
+			<Card.Title
+				titleVariant='headlineSmall'
+				subtitleVariant='bodyLarge'
+				subtitle={dishName}
+				subtitleNumberOfLines={3}
+				title={type}
+			/>
 
-				<Card.Content style={{ gap: 10 }}>
-					<Accordion
-						data={accordionData}
-						title='Show for: '
-						selected={selectedUserName}
-						setSelected={setSelectedUserName}
-					/>
-					<SegmentedButtons
-						value={menuChoiceType}
-						onValueChange={handleValueChange}
-						buttons={[
-							{
-								value: "ingredients",
-								icon: (props) => (
-									<MaterialCommunityIcons
-										name='food-variant'
-										{...props}
-										size={24}
-									/>
-								),
-							},
-							{
-								value: "recipe",
-								icon: (props) => (
-									<MaterialCommunityIcons
-										name='nutrition'
-										{...props}
-										size={24}
-									/>
-								),
-							},
-							{
-								value: "nutrients",
-								icon: (props) => (
-									<FontAwesome name='balance-scale' {...props} size={24} />
-								),
-							},
-						]}
-					/>
-					<MenuItemContent
-						allIngredients={allIngredients}
-						menuChoiceType={menuChoiceType}
-						recipe={recipe}
-						selectedUserNutrients={selectedUserNutrients}
-					/>
-					<Divider bold style={{ marginVertical: 10 }} />
-					<Portions
-						selectedUserNutrients={selectedUserNutrients}
-						totalWeight={totalWeight}
-					/>
-				</Card.Content>
-			</Card>
-		</View>
+			<Card.Content style={{ gap: 10 }}>
+				<Accordion
+					data={accordionData}
+					title='Show for: '
+					selected={selectedUserName}
+					setSelected={setSelectedUserName}
+				/>
+				<SegmentedButtons
+					value={menuChoiceType}
+					onValueChange={handleValueChange}
+					buttons={[
+						{
+							value: "ingredients",
+							icon: (props) => (
+								<MaterialCommunityIcons
+									name='food-variant'
+									{...props}
+									size={24}
+								/>
+							),
+						},
+						{
+							value: "recipe",
+							icon: (props) => (
+								<MaterialCommunityIcons name='nutrition' {...props} size={24} />
+							),
+						},
+						{
+							value: "nutrients",
+							icon: (props) => (
+								<FontAwesome name='balance-scale' {...props} size={24} />
+							),
+						},
+					]}
+				/>
+				<MenuItemContent
+					allIngredients={allIngredients}
+					menuChoiceType={menuChoiceType}
+					recipe={recipe}
+					selectedUserNutrients={selectedUserNutrients}
+				/>
+				<Divider bold style={{ marginVertical: 10 }} />
+				<Portions
+					selectedUserNutrients={selectedUserNutrients}
+					totalWeight={totalWeight}
+				/>
+			</Card.Content>
+		</Card>
 	);
 };
