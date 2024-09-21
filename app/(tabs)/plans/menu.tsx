@@ -51,6 +51,7 @@ const Menu = () => {
 		selectedUserName,
 		setSelectedUserName,
 	} = useMenuItem({ preparedDataForUsers });
+
 	const addIngredients = useGroceryList((state) => state.addIngredients);
 
 	const openBottomSheet = () => {

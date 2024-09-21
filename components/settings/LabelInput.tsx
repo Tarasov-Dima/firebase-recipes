@@ -5,6 +5,8 @@ type LabelInputProps = {
 	title: string;
 	label: string;
 	value: string;
+	maxLength: number;
+	onReset?: VoidFunction;
 	onChange: (text: string) => void;
 };
 
@@ -17,6 +19,8 @@ export const LabelInput = ({
 	label,
 	value,
 	onChange,
+	maxLength = 3,
+	onReset,
 }: LabelInputProps) => {
 	const handleChange = (text: string) => {
 		onChange(numberValidation(text));
@@ -30,7 +34,12 @@ export const LabelInput = ({
 				value={value}
 				onChangeText={handleChange}
 				inputMode='numeric'
-				maxLength={3}
+				maxLength={maxLength}
+				right={
+					onReset ? (
+						<TextInput.Icon icon='close' onPress={onReset} />
+					) : undefined
+				}
 			/>
 		</View>
 	);
