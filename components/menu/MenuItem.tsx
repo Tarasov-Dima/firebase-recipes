@@ -46,7 +46,6 @@ export const MenuItem = ({
 				subtitleNumberOfLines={3}
 				title={type}
 			/>
-
 			<Card.Content style={{ gap: 10 }}>
 				<Accordion
 					data={accordionData}

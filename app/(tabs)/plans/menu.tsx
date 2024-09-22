@@ -100,7 +100,7 @@ const Menu = () => {
 	return (
 		<>
 			<ScreenContainer>
-				<Switch value={premium} onValueChange={onToggleSwitch} />
+				{/* <Switch value={premium} onValueChange={onToggleSwitch} /> */}
 				<MenuItem
 					allIngredients={allIngredients}
 					totalWeight={totalWeight}

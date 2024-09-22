@@ -23,15 +23,15 @@ export const NutrientsView = ({ nutrients }: NutrientsProps) => {
 	const isNutrientsAsArray = Array.isArray(nutrients);
 
 	const renderTitle = () => {
-		if (isNutrientsAsArray) {
-			return nutrients.map(({ userName }) => {
-				return (
-					<DataTable.Title numeric key={userName}>
-						For {userName}
-					</DataTable.Title>
-				);
-			});
-		}
+		// if (isNutrientsAsArray) {
+		return nutrients.map(({ userName }) => {
+			return (
+				<DataTable.Title numeric key={userName} numberOfLines={2}>
+					{userName}
+				</DataTable.Title>
+			);
+		});
+		// }
 
 		return (
 			<>
@@ -42,60 +42,60 @@ export const NutrientsView = ({ nutrients }: NutrientsProps) => {
 	};
 
 	const renderRows = () => {
-		if (isNutrientsAsArray) {
-			const allUserNutrients = nutrients.map(
-				({ totalNutrients }) => totalNutrients
-			);
-			const nutrientKeys = Object.keys(allUserNutrients[0]).filter(
-				(key): key is NutrientKey => key !== "weight"
-			);
+		// if (isNutrientsAsArray) {
+		const allUserNutrients = nutrients.map(
+			({ totalNutrients }) => totalNutrients
+		);
+		const nutrientKeys = Object.keys(allUserNutrients[0]).filter(
+			(key): key is NutrientKey => key !== "weight"
+		);
 
-			return nutrientKeys.map((key) => {
-				const amountType = key === "energy" ? "Cal" : "g";
-
-				return (
-					<DataTable.Row key={key}>
-						<DataTable.Cell>{key}</DataTable.Cell>
-						{allUserNutrients.map((userNutrients, userIndex) => (
-							<DataTable.Cell key={`${key}-user-${userIndex}`} numeric>
-								{Math.round(userNutrients[key])} {amountType}
-							</DataTable.Cell>
-						))}
-					</DataTable.Row>
-				);
-			});
-		}
-
-		return Object.entries(nutrients).map(([key, value]) => {
-			if (key === "weight") {
-				return;
-			}
+		return nutrientKeys.map((key) => {
 			const amountType = key === "energy" ? "Cal" : "g";
-			const { weight } = nutrients;
 
 			return (
 				<DataTable.Row key={key}>
 					<DataTable.Cell>{key}</DataTable.Cell>
-					<DataTable.Cell numeric>
-						{Math.round(value)} {amountType}
-					</DataTable.Cell>
-					<DataTable.Cell numeric>
-						{Math.round(
-							calculateNutrientPer100Grams({
-								totalWeight: weight,
-								nutrientValue: value,
-							})
-						)}{" "}
-						{amountType}
-					</DataTable.Cell>
+					{allUserNutrients.map((userNutrients, userIndex) => (
+						<DataTable.Cell key={`${key}-user-${userIndex}`} numeric>
+							{Math.round(userNutrients[key])} {amountType}
+						</DataTable.Cell>
+					))}
 				</DataTable.Row>
 			);
 		});
+		// }
+
+		// return Object.entries(nutrients).map(([key, value]) => {
+		// 	if (key === "weight") {
+		// 		return;
+		// 	}
+		// 	const amountType = key === "energy" ? "Cal" : "g";
+		// 	const { weight } = nutrients;
+
+		// 	return (
+		// 		<DataTable.Row key={key}>
+		// 			<DataTable.Cell>{key}</DataTable.Cell>
+		// 			<DataTable.Cell numeric>
+		// 				{Math.round(value)} {amountType}
+		// 			</DataTable.Cell>
+		// 			<DataTable.Cell numeric>
+		// 				{Math.round(
+		// 					calculateNutrientPer100Grams({
+		// 						totalWeight: weight,
+		// 						nutrientValue: value,
+		// 					})
+		// 				)}{" "}
+		// 				{amountType}
+		// 			</DataTable.Cell>
+		// 		</DataTable.Row>
+		// 	);
+		// });
 	};
 	return (
 		<DataTable>
 			<DataTable.Header>
-				<DataTable.Title>{undefined}</DataTable.Title>
+				<DataTable.Title>Nutrients</DataTable.Title>
 				{renderTitle()}
 			</DataTable.Header>
 			{renderRows()}
