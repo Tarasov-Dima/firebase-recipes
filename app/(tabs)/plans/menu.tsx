@@ -1,7 +1,5 @@
 import { BottomSheetGroceryList } from "@/components/grocery/BottomSheetGroceryList";
-import { MenuItem } from "@/components/menu/MenuItem";
-import { ScreenContainer } from "@/components/ScreenContainer";
-import { getMealByKey } from "@/data/meals";
+import { getMealByDay, getMealByKey } from "@/data/meals";
 import { User } from "@/types";
 import { useStorage } from "@/useStorage";
 import { prepareMealDataForUsers } from "@/utils/prepareMealDataForUsers";
@@ -12,13 +10,13 @@ import {
 import { useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
 import { View } from "react-native";
-import { ActivityIndicator, Button, FAB, Switch } from "react-native-paper";
+import { ActivityIndicator, Button, FAB } from "react-native-paper";
 import { useMenuItem } from "@/hooks/useMenuItem";
 import { useGroceryList } from "@/storage/useGroceryList";
-import {
-	SafeAreaView,
-	useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { MenuCarousel } from "@/components/menu/MenuCarousel";
+import { DayPicker } from "@/components/menu/DayPicker";
+import { useDayPicker } from "@/hooks/useDayPicker";
 
 const Menu = () => {
 	const params = useLocalSearchParams();
@@ -26,16 +24,17 @@ const Menu = () => {
 
 	const [premium, setPremium] = useState(true);
 
-	const onToggleSwitch = () => setPremium(!premium);
-
 	const { data: users, loading } = useStorage<User[]>("users");
 	const [unselectedGroceries, setUnselectedGroceries] = useState([]);
-
+	const meals = getMealByDay();
 	const meal = getMealByKey("firstBreakfast");
+
+	const { days, selectedDay, visitedDays, setSelectedDay, markDayAsVisited } =
+		useDayPicker();
 
 	const bottomSheetRef = useRef<BottomSheetModalRef>(null);
 
-	const { dishes, type, id } = meal;
+	const { dishes, type } = meal;
 
 	const preparedDataForUsers = prepareMealDataForUsers({
 		users: users,
@@ -44,13 +43,7 @@ const Menu = () => {
 		premium,
 	});
 
-	const {
-		allIngredients,
-		totalWeight,
-		selectedUserNutrients,
-		selectedUserName,
-		setSelectedUserName,
-	} = useMenuItem({ preparedDataForUsers });
+	const { allIngredients } = useMenuItem({ preparedDataForUsers });
 
 	const addIngredients = useGroceryList((state) => state.addIngredients);
 
@@ -90,29 +83,17 @@ const Menu = () => {
 		bottomSheetRef.current?.close();
 		setUnselectedGroceries([]);
 	};
-	const userNames = preparedDataForUsers.map((user) => user.userName);
-
-	const accordionData = userNames.reduce((acc, name) => {
-		acc[name] = name;
-		return acc;
-	}, {} as Record<string, string>);
 
 	return (
 		<>
-			<ScreenContainer>
-				{/* <Switch value={premium} onValueChange={onToggleSwitch} /> */}
-				<MenuItem
-					allIngredients={allIngredients}
-					totalWeight={totalWeight}
-					selectedUserNutrients={selectedUserNutrients}
-					selectedUserName={selectedUserName}
-					accordionData={accordionData}
-					setSelectedUserName={setSelectedUserName}
-					dishName={dishes[0].name}
-					type={type}
-					recipe={dishes[0].recipe}
-				/>
-			</ScreenContainer>
+			<DayPicker
+				days={days}
+				selectedDay={selectedDay}
+				setSelectedDay={setSelectedDay}
+				visitedDays={visitedDays}
+				markDayAsVisited={markDayAsVisited}
+			/>
+			<MenuCarousel data={meals} />
 			<FAB
 				icon='basket-plus'
 				style={{ position: "absolute", margin: 16, right: 0, bottom: 0 }}

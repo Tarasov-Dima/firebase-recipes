@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Card, Divider, SegmentedButtons } from "react-native-paper";
 import { Dish } from "@/data/dishes";
-import { View } from "react-native";
 import { Portions } from "./Portions";
 import { MealVariant } from "@/data/meals";
 import { PreparedDataForUser } from "@/utils/prepareMealDataForUsers";
@@ -29,6 +28,7 @@ export const MenuItem = ({
 	recipe,
 	type,
 	dishName,
+	style,
 }: MenuItemProps) => {
 	const [menuChoiceType, setMenuChoiceType] =
 		useState<MenuChoiceType>("ingredients");
@@ -36,23 +36,25 @@ export const MenuItem = ({
 	const handleValueChange = (value: string) => {
 		setMenuChoiceType(value as MenuChoiceType);
 	};
+	const localImage = require("../../assets/images/pancake.webp");
 
 	return (
-		<Card style={{ marginBottom: 80 }}>
+		<Card style={[style, { margin: 16 }]}>
 			<Card.Title
 				titleVariant='headlineSmall'
 				subtitleVariant='bodyLarge'
 				subtitle={dishName}
-				subtitleNumberOfLines={3}
+				subtitleNumberOfLines={5}
 				title={type}
 			/>
-			<Card.Content style={{ gap: 10 }}>
+			<Card.Content style={{ gap: 10, flex: 1 }}>
 				<Accordion
 					data={accordionData}
 					title='Show for: '
 					selected={selectedUserName}
 					setSelected={setSelectedUserName}
 				/>
+				<Card.Cover source={localImage} />
 				<SegmentedButtons
 					value={menuChoiceType}
 					onValueChange={handleValueChange}

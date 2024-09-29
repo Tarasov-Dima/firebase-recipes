@@ -1,6 +1,7 @@
+import { useThemeContext } from "@/theme";
 import { useState } from "react";
 import { View } from "react-native";
-import { Text, Chip, Portal, Dialog } from "react-native-paper";
+import { Text, Chip, Portal, Dialog, Button } from "react-native-paper";
 
 type AccordionProps<T extends string> = {
 	title: string;
@@ -68,15 +69,17 @@ const ListItem = <T extends string>({
 	selected,
 	onHandleSelect,
 }: ListItemProps<T>) => {
+	const { theme } = useThemeContext();
+
 	const isSelected = itemKey === selected;
 
 	return (
-		<Chip
-			icon={isSelected ? "check" : undefined}
-			mode={isSelected ? "flat" : "outlined"}
+		<Button
+			mode={isSelected ? "contained" : "outlined"}
 			onPress={() => onHandleSelect(itemKey)}
+			theme={{ colors: { primary: theme.colors.secondary } }}
 		>
 			{title}
-		</Chip>
+		</Button>
 	);
 };

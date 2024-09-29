@@ -1,3 +1,4 @@
+import { Category } from "@/data/category";
 import { Nutrients } from "./nutrients";
 
 type AmountType = "g" | "ml";
@@ -11,4 +12,5 @@ export type Ingredient = {
 	};
 	nutrients_per_100g: Omit<Nutrients, "weight">;
 	weight_per_unit?: number;
+	category: Category;
 };

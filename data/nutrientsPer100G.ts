@@ -8,6 +8,7 @@ export const IngredientNutrientID = {
 	Milk: 5,
 	SourCreme: 6,
 	Raspberry: 7,
+	Salt: 8,
 } as const;
 
 export type IngredientNutrientIDType =
@@ -58,16 +59,12 @@ export const nutrientsPer100G: {
 		fat: 0.7,
 		carbohydrates: 12,
 	},
-};
-
-export const nutrientsId: { [key: number]: string } = {
-	1: "cottageCheese",
-	2: "eggs",
-	3: "flour",
-	4: "bakingPowder",
-	5: "milk",
-	6: "sourCream18%",
-	7: "raspberry",
+	[IngredientNutrientID.Salt]: {
+		energy: 0,
+		protein: 0,
+		fat: 0,
+		carbohydrates: 0,
+	},
 };
 
 export const getNutrientByKey = (key: keyof typeof IngredientNutrientID) => {

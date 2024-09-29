@@ -17,13 +17,24 @@ type UseGroceryListState = {
 
 export const useGroceryList = create<UseGroceryListState>()(
 	persist(
-		(set, get) => ({
+		(set) => ({
 			groceries: [],
-			addIngredient: (ingredient) =>
-				set((state) => ({
-					groceries: [...state.groceries, ingredient],
-				})),
-
+			addIngredient: (newIngredient) =>
+				set((state) => {
+					const updatedGroceries = [...state.groceries];
+					const existingIngredientIndex = updatedGroceries.findIndex(
+						(ingredient) => ingredient.id === newIngredient.id
+					);
+					if (existingIngredientIndex !== -1) {
+						// If the ingredient exists, update its amount.number
+						updatedGroceries[existingIngredientIndex].amount.number +=
+							newIngredient.amount.number;
+					} else {
+						// If the ingredient doesn't exist, add it to the array
+						updatedGroceries.push(newIngredient);
+					}
+					return { groceries: updatedGroceries };
+				}),
 			addIngredients: (newIngredients) =>
 				set((state) => {
 					const updatedGroceries = [...state.groceries];

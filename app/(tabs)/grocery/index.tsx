@@ -1,12 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGroceryList } from "@/storage/useGroceryList";
-import { useThemeContext } from "@/theme";
 import { Alert } from "react-native";
 import { GroceryList } from "@/components/grocery/GroceryList";
-import { FAB } from "react-native-paper";
+import { ListFABs } from "@/components/grocery/ListFABs";
+import {
+	BottomSheetModal,
+	BottomSheetModalRef,
+} from "@/components/BottomSheetModal";
+import { AddGroceryForm } from "@/components/grocery/AddGroceryForm";
 
 const GroceryTab = () => {
+	const bottomSheetRef = useRef<BottomSheetModalRef>(null);
+
 	const groceries = useGroceryList((state) => state.groceries);
+	const addIngredient = useGroceryList((state) => state.addIngredient);
 	const resetGroceries = useGroceryList((state) => state.resetGroceries);
 
 	const [selectedGroceries, setSelectedGroceries] = useState<number[]>([]);
@@ -21,9 +28,13 @@ const GroceryTab = () => {
 		});
 	};
 
+	const unselectedAll = () => {
+		setSelectedGroceries([]);
+	};
+
 	const resetAll = () => {
 		resetGroceries();
-		setSelectedGroceries([]);
+		unselectedAll();
 	};
 
 	useEffect(() => {
@@ -36,7 +47,6 @@ const GroceryTab = () => {
 		}
 	}, [selectedGroceries, groceries.length]);
 
-	const showClearList = groceries.length > 0;
 	return (
 		<>
 			<GroceryList
@@ -44,19 +54,16 @@ const GroceryTab = () => {
 				selectedGroceries={selectedGroceries}
 				handleSelectGrocery={handleSelectGrocery}
 			/>
-			{showClearList && (
-				<FAB
-					icon='basket-remove'
-					style={{ position: "absolute", margin: 16, right: 0, bottom: 0 }}
-					onPress={() =>
-						groceryListAlert({
-							title: "Do you want to clear the list?",
-							subtitle: "",
-							onPress: resetAll,
-						})
-					}
-				/>
-			)}
+			<ListFABs
+				onUnselect={unselectedAll}
+				onAdd={() => bottomSheetRef.current?.present()}
+				onReset={resetAll}
+				unselectDisabled={selectedGroceries.length === 0}
+				resetDisabled={groceries.length === 0}
+			/>
+			<BottomSheetModal ref={bottomSheetRef}>
+				<AddGroceryForm onAddGrocery={() => {}} />
+			</BottomSheetModal>
 		</>
 	);
 };
