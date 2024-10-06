@@ -12,7 +12,9 @@ export const CategoryID = {
 	SeasoningsAndSpices: 11,
 	CondimentsAndSauces: 12,
 	Eggs: 13,
-	Household: 14,
+	DairyAlternatives: 14,
+	Herbs: 15,
+	Household: 110,
 } as const;
 
 type CategoryIDType = (typeof CategoryID)[keyof typeof CategoryID];
@@ -26,59 +28,67 @@ export type Category = {
 
 export const categories: { [key in CategoryIDType]: Category } = {
 	[CategoryID.Dairy]: {
-		id: 1,
+		id: CategoryID.Dairy,
 		name: "Dairy",
 	},
 	[CategoryID.BakingSupplies]: {
-		id: 2,
+		id: CategoryID.BakingSupplies,
 		name: "Baking Supplies",
 	},
 	[CategoryID.Fruits]: {
-		id: 3,
+		id: CategoryID.Fruits,
 		name: "Fruits",
 	},
 	[CategoryID.Meat]: {
-		id: 4,
+		id: CategoryID.Meat,
 		name: "Meat",
 	},
 	[CategoryID.Seafood]: {
-		id: 5,
+		id: CategoryID.Seafood,
 		name: "Seafood",
 	},
 	[CategoryID.Vegetables]: {
-		id: 6,
+		id: CategoryID.Vegetables,
 		name: "Vegetables",
 	},
 	[CategoryID.GrainsAndCereals]: {
-		id: 7,
+		id: CategoryID.GrainsAndCereals,
 		name: "Grains and Cereals",
 	},
 	[CategoryID.NutsAndSeeds]: {
-		id: 8,
+		id: CategoryID.NutsAndSeeds,
 		name: "Nuts and Seeds",
 	},
 	[CategoryID.OilsAndFats]: {
-		id: 9,
+		id: CategoryID.OilsAndFats,
 		name: "Oils and Fats",
 	},
 	[CategoryID.CannedGoods]: {
-		id: 10,
+		id: CategoryID.CannedGoods,
 		name: "Canned Goods",
 	},
 	[CategoryID.SeasoningsAndSpices]: {
-		id: 11,
+		id: CategoryID.SeasoningsAndSpices,
 		name: "Seasonings and Spices",
 	},
 	[CategoryID.CondimentsAndSauces]: {
-		id: 12,
+		id: CategoryID.CondimentsAndSauces,
 		name: "Condiments and Sauces",
 	},
 	[CategoryID.Eggs]: {
-		id: 13,
+		id: CategoryID.Eggs,
 		name: "Eggs",
 	},
+	[CategoryID.DairyAlternatives]: {
+		id: CategoryID.DairyAlternatives,
+		name: "Dairy Alternatives",
+	},
+	[CategoryID.Herbs]: {
+		id: CategoryID.Herbs,
+		name: "Herbs",
+	},
 	[CategoryID.Household]: {
-		id: 14,
+		id: CategoryID.Household,
 		name: "Household Products",
 	},
 };

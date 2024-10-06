@@ -19,6 +19,7 @@ type MenuItemProps = {
 type MenuChoiceType = "ingredients" | "recipe" | "nutrients";
 
 export const MenuItem = ({
+	image,
 	allIngredients,
 	totalWeight,
 	selectedUserNutrients,
@@ -36,7 +37,6 @@ export const MenuItem = ({
 	const handleValueChange = (value: string) => {
 		setMenuChoiceType(value as MenuChoiceType);
 	};
-	const localImage = require("../../assets/images/pancake.webp");
 
 	return (
 		<Card style={[style, { margin: 16 }]}>
@@ -54,7 +54,7 @@ export const MenuItem = ({
 					selected={selectedUserName}
 					setSelected={setSelectedUserName}
 				/>
-				<Card.Cover source={localImage} />
+				<Card.Cover source={image} style={{ height: 300 }} />
 				<SegmentedButtons
 					value={menuChoiceType}
 					onValueChange={handleValueChange}

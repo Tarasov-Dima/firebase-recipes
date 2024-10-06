@@ -2,7 +2,7 @@ import { UseDayPickerReturn } from "@/hooks/useDayPicker";
 import { useThemeContext } from "@/theme";
 import React, { useState } from "react";
 import { FlatList } from "react-native-gesture-handler";
-import { Card, Chip, Icon } from "react-native-paper";
+import { Button, Card, Chip, Icon } from "react-native-paper";
 
 const DOUBLE_TAP_DELAY = 300;
 
@@ -42,10 +42,11 @@ export const DayPicker = ({
 			? theme.colors.onPrimary
 			: theme.colors.text;
 		return (
-			<Chip
+			<Button
 				onPress={() => handleDayPress(item)}
 				style={{ backgroundColor }}
-				showSelectedCheck={isSelected}
+				contentStyle={{ height: 46 }}
+				textColor={selectedColor}
 				icon={() =>
 					isVisited ? (
 						<Icon
@@ -55,11 +56,12 @@ export const DayPicker = ({
 						/>
 					) : undefined
 				}
-				selectedColor={selectedColor}
-				showSelectedOverlay={isSelected}
+
+				// selectedColor={selectedColor}
+				// showSelectedOverlay={isSelected}
 			>
 				Day {item}
-			</Chip>
+			</Button>
 		);
 	};
 

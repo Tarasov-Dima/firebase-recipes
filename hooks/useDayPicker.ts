@@ -12,7 +12,7 @@ export const useDayPicker = (): UseDayPickerReturn => {
 	const [selectedDay, setSelectedDay] = useState(1);
 	const [visitedDays, setVisitedDays] = useState<number[]>([]);
 
-	const days = Array.from({ length: 30 }, (_, index) => index + 1);
+	const days = Array.from({ length: 7 }, (_, index) => index + 1);
 
 	const markDayAsVisited = (day: number) => {
 		if (visitedDays.includes(day)) {

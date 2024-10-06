@@ -9,6 +9,15 @@ export const IngredientNutrientID = {
 	SourCreme: 6,
 	Raspberry: 7,
 	Salt: 8,
+	UdonNoodles: 9,
+	VegetableOil: 10,
+	Zucchini: 11,
+	CurryPaste: 12,
+	Shrimp: 13,
+	CoconutMilk: 14,
+	Coriander: 15,
+	Tomato: 16,
+	Beans: 17,
 } as const;
 
 export type IngredientNutrientIDType =
@@ -64,6 +73,60 @@ export const nutrientsPer100G: {
 		protein: 0,
 		fat: 0,
 		carbohydrates: 0,
+	},
+	[IngredientNutrientID.UdonNoodles]: {
+		energy: 127,
+		protein: 4,
+		fat: 0.5,
+		carbohydrates: 25,
+	},
+	[IngredientNutrientID.VegetableOil]: {
+		energy: 884,
+		protein: 0,
+		fat: 100,
+		carbohydrates: 0,
+	},
+	[IngredientNutrientID.Zucchini]: {
+		energy: 17,
+		protein: 1.2,
+		fat: 0.3,
+		carbohydrates: 3.1,
+	},
+	[IngredientNutrientID.CurryPaste]: {
+		energy: 140,
+		protein: 1.5,
+		fat: 7,
+		carbohydrates: 17,
+	},
+	[IngredientNutrientID.Shrimp]: {
+		energy: 99,
+		protein: 24,
+		fat: 0.3,
+		carbohydrates: 0.2,
+	},
+	[IngredientNutrientID.CoconutMilk]: {
+		energy: 230,
+		protein: 2.3,
+		fat: 24,
+		carbohydrates: 6,
+	},
+	[IngredientNutrientID.Coriander]: {
+		energy: 23,
+		protein: 2.1,
+		fat: 0.5,
+		carbohydrates: 3.7,
+	},
+	[IngredientNutrientID.Tomato]: {
+		energy: 19,
+		protein: 1.1,
+		fat: 0,
+		carbohydrates: 3.2,
+	},
+	[IngredientNutrientID.Beans]: {
+		energy: 347,
+		protein: 21,
+		fat: 1.2,
+		carbohydrates: 63,
 	},
 };
 
