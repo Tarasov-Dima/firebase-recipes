@@ -11,66 +11,43 @@ import Animated, {
 	FadingTransition,
 } from "react-native-reanimated";
 
-type GroceryListProps = {
+type Section = {
+	title: string;
 	data: Ingredient[];
+};
+
+type GroceryListBasicProps = {
 	selectedGroceries: number[];
 	handleSelectGrocery: (id: number) => void;
 	selectedType?: "default" | "lineThrough";
-	isBottomSheet?: boolean;
 };
 
+type GroceryListWithSectionsProps = GroceryListBasicProps & {
+	sections: Section[];
+	isBottomSheet?: false;
+	data?: never;
+};
+
+type GroceryListWithDataProps = GroceryListBasicProps & {
+	data: Ingredient[];
+	isBottomSheet: true;
+	sections?: never;
+};
+
+type GroceryListProps = GroceryListWithSectionsProps | GroceryListWithDataProps;
+
 export const GroceryList = ({
+	sections,
 	data,
 	selectedGroceries,
 	handleSelectGrocery,
 	selectedType = "lineThrough",
 	isBottomSheet = false,
 }: GroceryListProps) => {
-	const groupAndSortByCategory = (
-		ingredients: Ingredient[],
-		selectedGroceries: number[]
-	) => {
-		// Group ingredients by category
-		const groupedCategories = ingredients.reduce((sections, ingredient) => {
-			const { category } = ingredient;
-			const section = sections.find(
-				(section) => section.title === category.name
-			);
-			if (section) {
-				section.data.push(ingredient);
-			} else {
-				sections.push({ title: category.name, data: [ingredient] });
-			}
-			return sections;
-		}, [] as { title: string; data: Ingredient[] }[]);
-
-		// Move selected ingredients to the bottom within each category
-		groupedCategories.forEach((section) => {
-			section.data.sort((a, b) => {
-				const isSelectedA = selectedGroceries.includes(a.id);
-				const isSelectedB = selectedGroceries.includes(b.id);
-				return isSelectedA === isSelectedB ? 0 : isSelectedA ? 1 : -1;
-			});
-		});
-
-		// Move fully selected categories to the bottom
-		const allSelectedCategories = groupedCategories.filter((section) =>
-			section.data.every((item) => selectedGroceries.includes(item.id))
-		);
-		const partiallySelectedCategories = groupedCategories.filter(
-			(section) =>
-				!section.data.every((item) => selectedGroceries.includes(item.id))
-		);
-
-		// Return partially selected categories first, fully selected categories last
-		return [...partiallySelectedCategories, ...allSelectedCategories];
-	};
-
-	const sections = groupAndSortByCategory(data, selectedGroceries);
-
-	const renderItem = ({ item }) => {
+	const renderItem = ({ item }: { item: Ingredient }) => {
 		const { id, name, amount } = item;
 		const isSelected = selectedGroceries.some((groceryId) => groceryId === id);
+
 		return (
 			<Animated.View
 				entering={FadeIn}
@@ -115,16 +92,19 @@ export const GroceryList = ({
 			/>
 		);
 	}
-	return (
-		<SectionList
-			sections={sections}
-			renderItem={renderItem}
-			keyExtractor={keyExtractor}
-			renderSectionHeader={renderSectionHeader}
-			ListEmptyComponent={ListEmptyComponent}
-			contentContainerStyle={{ padding: 12 }}
-			ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
-			stickySectionHeadersEnabled={false}
-		/>
-	);
+	if (sections) {
+		return (
+			<SectionList
+				sections={sections}
+				renderItem={renderItem}
+				keyExtractor={keyExtractor}
+				renderSectionHeader={renderSectionHeader}
+				ListEmptyComponent={ListEmptyComponent}
+				contentContainerStyle={{ padding: 12 }}
+				ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
+				stickySectionHeadersEnabled={false}
+			/>
+		);
+	}
+	return null;
 };

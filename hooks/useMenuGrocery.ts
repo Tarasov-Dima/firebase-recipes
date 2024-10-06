@@ -1,9 +1,12 @@
+import { useSnackbar } from "@/providers/SnackbarProvider";
 import { useGroceryList } from "@/storage/useGroceryList";
 import { useState } from "react";
 
 export const useMenuGrocery = (allIngredients, closeBottomSheet) => {
 	const [unselectedGroceries, setUnselectedGroceries] = useState([]);
 	const addIngredients = useGroceryList((state) => state.addIngredients);
+
+	const { showSnackbar } = useSnackbar();
 
 	const selectedGroceries = allIngredients
 		.filter((ingredient) => {
@@ -28,6 +31,7 @@ export const useMenuGrocery = (allIngredients, closeBottomSheet) => {
 		addIngredients(filteredIngredients);
 		closeBottomSheet();
 		setUnselectedGroceries([]);
+		showSnackbar({ message: "Groceries added to list" });
 	};
 
 	return {

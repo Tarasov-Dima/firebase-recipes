@@ -1,9 +1,10 @@
 import { useThemeContext } from "@/theme";
 import {
+	BottomSheetBackdrop,
 	type BottomSheetModalProps,
 	BottomSheetModal as GBottomSheetModal,
 } from "@gorhom/bottom-sheet";
-import React, { forwardRef, useMemo } from "react";
+import React, { forwardRef, useCallback, useMemo } from "react";
 export type BottomSheetModalRef = GBottomSheetModal;
 
 // type BottomSheetProps = BottomSheetModalProps;
@@ -21,7 +22,7 @@ export const BottomSheetModal = forwardRef<
 			index={0}
 			snapPoints={snapPoints}
 			backgroundStyle={[
-				{ backgroundColor: theme.colors.elevation.level4, marginBottom: 6 },
+				{ backgroundColor: theme.colors.surface, marginBottom: 6 },
 			]}
 			handleIndicatorStyle={[{ backgroundColor: theme.colors.primary }]}
 			enablePanDownToClose

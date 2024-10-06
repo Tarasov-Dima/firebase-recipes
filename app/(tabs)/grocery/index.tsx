@@ -8,15 +8,24 @@ import {
 	BottomSheetModalRef,
 } from "@/components/BottomSheetModal";
 import { AddGroceryForm } from "@/components/grocery/AddGroceryForm";
+import { groupAndSortByCategory } from "@/utils/groupAndSortByCategory";
+import { setStringAsync } from "expo-clipboard";
+import { useSnackbar } from "@/providers/SnackbarProvider";
 
 const GroceryTab = () => {
 	const bottomSheetRef = useRef<BottomSheetModalRef>(null);
+	const { showSnackbar } = useSnackbar();
 
 	const groceries = useGroceryList((state) => state.groceries);
 	const addIngredient = useGroceryList((state) => state.addIngredient);
 	const resetGroceries = useGroceryList((state) => state.resetGroceries);
 
 	const [selectedGroceries, setSelectedGroceries] = useState<number[]>([]);
+
+	const sections = groupAndSortByCategory({
+		ingredients: groceries,
+		selectedIngredients: selectedGroceries,
+	});
 
 	const handleSelectGrocery = (newGroceryId: number) => {
 		setSelectedGroceries((prevGroceries) => {
@@ -37,8 +46,31 @@ const GroceryTab = () => {
 		unselectedAll();
 	};
 
+	const onAdd = () => {
+		bottomSheetRef.current?.present();
+	};
+
+	const onCopy = async () => {
+		const groceriesForCopy = sections
+			.map((section) => {
+				const category = section.title;
+				const groceries = section.data.map((grocery) => {
+					return `${grocery.name} - ${grocery.amount.number}${
+						grocery.amount.type ?? ""
+					}`;
+				});
+				return `${category}\n${groceries.join("\n")}`;
+			})
+			.join("\n\n");
+
+		await setStringAsync(groceriesForCopy);
+		showSnackbar({ message: "Groceries copied to clipboard!" });
+	};
+
+	const isEmptyList = groceries.length === 0;
+
 	useEffect(() => {
-		if (groceries.length > 0 && selectedGroceries.length === groceries.length) {
+		if (!isEmptyList && selectedGroceries.length === groceries.length) {
 			groceryListAlert({
 				title: "All Groceries Selected",
 				subtitle: "You got all groceries. Do you want to clear the list?",
@@ -50,16 +82,18 @@ const GroceryTab = () => {
 	return (
 		<>
 			<GroceryList
-				data={groceries}
+				sections={sections}
 				selectedGroceries={selectedGroceries}
 				handleSelectGrocery={handleSelectGrocery}
 			/>
 			<ListFABs
 				onUnselect={unselectedAll}
-				onAdd={() => bottomSheetRef.current?.present()}
+				onAdd={onAdd}
 				onReset={resetAll}
+				onCopy={onCopy}
 				unselectDisabled={selectedGroceries.length === 0}
-				resetDisabled={groceries.length === 0}
+				resetDisabled={isEmptyList}
+				copyDisabled={isEmptyList}
 			/>
 			<BottomSheetModal ref={bottomSheetRef}>
 				<AddGroceryForm onAddGrocery={() => {}} />
