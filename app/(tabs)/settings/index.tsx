@@ -6,12 +6,13 @@ import {
 	TouchableRipple,
 } from "react-native-paper";
 import { Link, useFocusEffect } from "expo-router";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import { useStorage } from "@/useStorage";
 import { useCallback } from "react";
 import { FlashList } from "@shopify/flash-list";
 import { User } from "@/types";
 import { ScreenContainer } from "@/components/ScreenContainer";
+import { MealVariant } from "../../../data/meals";
 
 const SettingsTab = () => {
 	const { data: users, refetch, setValue } = useStorage<User[]>("users");
@@ -22,9 +23,24 @@ const SettingsTab = () => {
 		}, [refetch])
 	);
 
-	const onDeleteUser = (id: User["id"]) => {
+	const onDeleteUser = (id: User["id"], name) => {
 		const filteredUsers = users?.filter((user) => user.id !== id);
-		setValue(filteredUsers);
+
+		Alert.alert(
+			`Delete user data`,
+			`Do you want to delete ${name}'s data?`,
+			[
+				{
+					text: "No",
+					style: "cancel",
+				},
+				{
+					text: "Yes",
+					onPress: () => setValue(filteredUsers),
+				},
+			],
+			{ cancelable: false }
+		);
 	};
 
 	const renderItem = ({ item }: { item: User | undefined }) => {
@@ -42,28 +58,28 @@ const SettingsTab = () => {
 				}}
 				asChild
 			>
-				<TouchableRipple key={id}>
-					<Card mode='outlined'>
-						<Card.Title
-							title={name}
-							right={() => (
-								<IconButton
-									size={24}
-									icon='delete'
-									onPress={() => onDeleteUser(id)}
-								/>
-							)}
-						/>
-						<Card.Content>
-							<Text variant='titleLarge'>User data:</Text>
-							<Text>Age: {age} years</Text>
-							<Text>Height: {height} cm</Text>
-							<Text>Weight: {weight} kg</Text>
-							<Text>Sex: {sex}</Text>
-							<Text>Energy per day: {calculateAMR} Cal</Text>
-						</Card.Content>
-					</Card>
-				</TouchableRipple>
+				<Card>
+					<Card.Title
+						title={name}
+						titleVariant='titleLarge'
+						right={() => (
+							<IconButton
+								size={24}
+								icon='delete'
+								onPress={() => onDeleteUser(id, name)}
+							/>
+						)}
+					/>
+					<Card.Content>
+						<Text variant='titleMedium'>Age: {age} years</Text>
+						<Text variant='titleMedium'>Height: {height} cm</Text>
+						<Text variant='titleMedium'>Weight: {weight} kg</Text>
+						<Text variant='titleMedium'>Sex: {sex}</Text>
+						<Text variant='titleMedium'>
+							Energy per day: {calculateAMR} Cal
+						</Text>
+					</Card.Content>
+				</Card>
 			</Link>
 		);
 	};
