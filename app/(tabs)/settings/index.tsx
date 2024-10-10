@@ -1,18 +1,11 @@
-import {
-	FAB,
-	Text,
-	Card,
-	IconButton,
-	TouchableRipple,
-} from "react-native-paper";
+import { FAB, Text, Card, IconButton } from "react-native-paper";
 import { Link, useFocusEffect } from "expo-router";
-import { Alert, View } from "react-native";
+import { Alert } from "react-native";
 import { useStorage } from "@/useStorage";
 import { useCallback } from "react";
 import { FlashList } from "@shopify/flash-list";
 import { User } from "@/types";
-import { ScreenContainer } from "@/components/ScreenContainer";
-import { MealVariant } from "../../../data/meals";
+import { ItemSeparatorComponent } from "@/components/ItemSeparatorComponent";
 
 const SettingsTab = () => {
 	const { data: users, refetch, setValue } = useStorage<User[]>("users");
@@ -48,8 +41,7 @@ const SettingsTab = () => {
 			return null;
 		}
 
-		const { name, id, age, height, weight, sex, calculateAMR, activityLevel } =
-			item;
+		const { name, id, age, height, weight, sex, calculateAMR } = item;
 		return (
 			<Link
 				href={{
@@ -87,13 +79,13 @@ const SettingsTab = () => {
 	const showFab = !users || users?.length < 3;
 
 	return (
-		<ScreenContainer withScroll={false} withVerticalPadding={false}>
+		<>
 			<FlashList
 				data={users ?? []}
 				renderItem={renderItem}
 				estimatedItemSize={200}
-				contentContainerStyle={{ paddingVertical: 12 }}
-				ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+				contentContainerStyle={{ padding: 16 }}
+				ItemSeparatorComponent={ItemSeparatorComponent}
 			/>
 			<Link
 				href={{
@@ -109,7 +101,7 @@ const SettingsTab = () => {
 					/>
 				)}
 			</Link>
-		</ScreenContainer>
+		</>
 	);
 };
 

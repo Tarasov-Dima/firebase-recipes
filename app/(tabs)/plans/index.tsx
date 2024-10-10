@@ -1,7 +1,7 @@
-import { View } from "react-native";
 import { Text, Card } from "react-native-paper";
 import { FlashList } from "@shopify/flash-list";
 import { Link } from "expo-router";
+import { ItemSeparatorComponent } from "@/components/ItemSeparatorComponent";
 
 const DATA = [
 	{
@@ -47,7 +47,7 @@ const PlansTab = () => {
 			renderItem={renderItem}
 			estimatedItemSize={200}
 			contentContainerStyle={{ padding: 16 }}
-			ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+			ItemSeparatorComponent={() => <ItemSeparatorComponent />}
 		/>
 	);
 };

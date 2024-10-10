@@ -10,6 +10,7 @@ import Animated, {
 	FadeOut,
 	FadingTransition,
 } from "react-native-reanimated";
+import { ItemSeparatorComponent } from "../ItemSeparatorComponent";
 
 type Section = {
 	title: string;
@@ -101,7 +102,7 @@ export const GroceryList = ({
 				renderSectionHeader={renderSectionHeader}
 				ListEmptyComponent={ListEmptyComponent}
 				contentContainerStyle={{ padding: 12 }}
-				ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
+				ItemSeparatorComponent={() => <ItemSeparatorComponent height={8} />}
 				stickySectionHeadersEnabled={false}
 			/>
 		);

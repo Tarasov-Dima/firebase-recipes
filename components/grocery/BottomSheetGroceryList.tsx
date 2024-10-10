@@ -1,10 +1,9 @@
 import React, { useCallback } from "react";
-import { useWindowDimensions, View } from "react-native";
 import { GroceryListItem } from "./GroceryListItem";
 import { Ingredient } from "@/types";
 import { ListEmptyComponent } from "./ListEmptyComponent";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ItemSeparatorComponent } from "../ItemSeparatorComponent";
 
 type GroceryListProps = {
 	data: Ingredient[];
@@ -45,7 +44,7 @@ export const BottomSheetGroceryList = ({
 			renderItem={renderItem}
 			ListEmptyComponent={ListEmptyComponent}
 			contentContainerStyle={{ padding: 12 }}
-			ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
+			ItemSeparatorComponent={() => <ItemSeparatorComponent height={8} />}
 		/>
 	);
 };
