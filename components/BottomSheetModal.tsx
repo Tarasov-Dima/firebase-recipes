@@ -4,15 +4,15 @@ import {
 	type BottomSheetModalProps,
 	BottomSheetModal as GBottomSheetModal,
 } from "@gorhom/bottom-sheet";
-import React, { forwardRef, useCallback, useMemo } from "react";
+import React, { forwardRef, useMemo } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 export type BottomSheetModalRef = GBottomSheetModal;
-
-// type BottomSheetProps = BottomSheetModalProps;
 
 export const BottomSheetModal = forwardRef<
 	BottomSheetModalRef,
 	BottomSheetModalProps
 >(({ children, ...rest }, ref) => {
+	const { top } = useSafeAreaInsets();
 	const { theme } = useThemeContext();
 	const snapPoints = useMemo(() => ["70%"], []);
 
@@ -26,7 +26,15 @@ export const BottomSheetModal = forwardRef<
 			]}
 			handleIndicatorStyle={[{ backgroundColor: theme.colors.primary }]}
 			enablePanDownToClose
+			backdropComponent={(props) => (
+				<BottomSheetBackdrop
+					{...props}
+					appearsOnIndex={0}
+					disappearsOnIndex={-1}
+				/>
+			)}
 			{...rest}
+			style={{ marginTop: top }}
 		>
 			{children}
 		</GBottomSheetModal>

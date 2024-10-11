@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Button, Dialog, FAB, Portal, Text } from "react-native-paper";
 import Animated, {
@@ -8,6 +8,8 @@ import Animated, {
 } from "react-native-reanimated";
 
 export const ListFABs = ({
+	menuVisible,
+	setMenuVisible,
 	onAdd,
 	onReset,
 	onUnselect,
@@ -16,7 +18,7 @@ export const ListFABs = ({
 	onCopy,
 	copyDisabled,
 }) => {
-	const [menuVisible, setMenuVisible] = useState(false);
+	// const [menuVisible, setMenuVisible] = useState(false);
 	const [dialogVariant, setDialogVariant] = useState(undefined);
 	const [dialogVisible, setDialogVisible] = useState(false);
 
@@ -67,23 +69,39 @@ export const ListFABs = ({
 		};
 	});
 
+	const hideAnimation = () => {
+		resetFabPosition.value = 0;
+		addFabPosition.value = 0;
+		unselectFabPosition.value = 0;
+		copyFabPosition.value = 0;
+		fabOpacity.value = 0;
+	};
+
+	const showAnimation = () => {
+		resetFabPosition.value = -210;
+		addFabPosition.value = -140;
+		unselectFabPosition.value = -70;
+		copyFabPosition.value = -70;
+		fabOpacity.value = 1;
+	};
+
 	const toggleMenu = () => {
 		if (menuVisible) {
-			resetFabPosition.value = 0;
-			addFabPosition.value = 0;
-			unselectFabPosition.value = 0;
-			copyFabPosition.value = 0;
-			fabOpacity.value = 0;
+			hideAnimation();
 		} else {
-			resetFabPosition.value = -210;
-			addFabPosition.value = -140;
-			unselectFabPosition.value = -70;
-			copyFabPosition.value = -70;
-			fabOpacity.value = 1;
+			showAnimation();
 		}
 
 		setMenuVisible(!menuVisible);
 	};
+
+	useEffect(() => {
+		if (menuVisible) {
+			showAnimation();
+		} else {
+			hideAnimation();
+		}
+	}, [menuVisible]);
 
 	const showDialog = (variant) => {
 		setDialogVariant(variant);

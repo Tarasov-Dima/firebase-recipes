@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useGroceryList } from "@/storage/useGroceryList";
+import { Grocery, useGroceryList } from "@/storage/useGroceryList";
 import { Alert } from "react-native";
 import { GroceryList } from "@/components/grocery/GroceryList";
 import { ListFABs } from "@/components/grocery/ListFABs";
@@ -11,13 +11,18 @@ import { AddGroceryForm } from "@/components/grocery/AddGroceryForm";
 import { groupAndSortByCategory } from "@/utils/groupAndSortByCategory";
 import { setStringAsync } from "expo-clipboard";
 import { useSnackbar } from "@/providers/SnackbarProvider";
+import { ingredients } from "@/data/ingredients";
+
+const ingredientsArray = Object.values(ingredients);
 
 const GroceryTab = () => {
 	const bottomSheetRef = useRef<BottomSheetModalRef>(null);
 	const { showSnackbar } = useSnackbar();
 
+	const [menuVisible, setMenuVisible] = useState(false);
+
 	const groceries = useGroceryList((state) => state.groceries);
-	const addIngredient = useGroceryList((state) => state.addIngredient);
+	const addGrocery = useGroceryList((state) => state.addGrocery);
 	const resetGroceries = useGroceryList((state) => state.resetGroceries);
 
 	const [selectedGroceries, setSelectedGroceries] = useState<number[]>([]);
@@ -79,6 +84,29 @@ const GroceryTab = () => {
 		}
 	}, [selectedGroceries, groceries.length]);
 
+	const onAddGrocery = (grocery: Grocery) => {
+		addGrocery(grocery);
+		setMenuVisible(false);
+		bottomSheetRef.current?.dismiss();
+	};
+
+	const ingredients = ingredientsArray.map(
+		({ nutrients_per_100g, ...rest }) => {
+			return {
+				...rest,
+				amount: {
+					number: 0,
+				},
+			};
+		}
+	);
+
+	const mergedGroceries = Array.from(
+		new Map(
+			[...groceries, ...ingredients].map((item) => [item.id, item])
+		).values()
+	);
+
 	return (
 		<>
 			<GroceryList
@@ -87,6 +115,8 @@ const GroceryTab = () => {
 				handleSelectGrocery={handleSelectGrocery}
 			/>
 			<ListFABs
+				setMenuVisible={setMenuVisible}
+				menuVisible={menuVisible}
 				onUnselect={unselectedAll}
 				onAdd={onAdd}
 				onReset={resetAll}
@@ -96,7 +126,10 @@ const GroceryTab = () => {
 				copyDisabled={isEmptyList}
 			/>
 			<BottomSheetModal ref={bottomSheetRef}>
-				<AddGroceryForm onAddGrocery={() => {}} />
+				<AddGroceryForm
+					groceries={mergedGroceries}
+					onAddGrocery={onAddGrocery}
+				/>
 			</BottomSheetModal>
 		</>
 	);
