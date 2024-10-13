@@ -7,7 +7,8 @@ import Animated, {
 import { CarouselItem } from "./CarouselItem";
 import { PaginationDots } from "./PaginationDots";
 import { BottomSheetModalRef } from "../BottomSheetModal";
-import { FAB } from "react-native-paper";
+import { ActivityIndicator, FAB } from "react-native-paper";
+import { View } from "react-native";
 
 export const MenuCarousel = ({ data }) => {
 	const flatListRef = useRef<FlatList>(null);
@@ -51,11 +52,19 @@ export const MenuCarousel = ({ data }) => {
 		}
 	};
 
-	useEffect(() => {
-		if (data.length > 0) {
-			scrollToFirstItem();
-		}
-	}, [data]);
+	// useEffect(() => {
+	// 	if (data?.length > 0) {
+	// 		scrollToFirstItem();
+	// 	}
+	// }, [data]);
+
+	if (!data) {
+		return (
+			<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+				<ActivityIndicator size='large' />
+			</View>
+		);
+	}
 
 	return (
 		<>
@@ -79,8 +88,8 @@ export const MenuCarousel = ({ data }) => {
 					keyExtractor={(item) => item.id}
 					scrollEventThrottle={16}
 					onScroll={scrollHandler}
-					onViewableItemsChanged={onViewableItemsChanged}
-					viewabilityConfig={viewabilityConfig}
+					// onViewableItemsChanged={onViewableItemsChanged}
+					// viewabilityConfig={viewabilityConfig}
 				/>
 			</ScrollView>
 			<FAB
