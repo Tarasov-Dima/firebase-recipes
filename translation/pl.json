@@ -1,0 +1,210 @@
+{
+	"screens": {
+		"settings": {
+			"title": "Ustawienia",
+			"tabTitle": "ustawienia",
+			"addUserBtn": "Dodaj użytkownika",
+			"age": "Wiek",
+			"height": "Wzrost",
+			"weight": "Waga",
+			"sex": "Płeć",
+			"energy": "Energia na dzień",
+			"user": {
+				"title": "Użytkownik",
+				"name": "Imię",
+				"sex": {
+					"title": "Płeć",
+					"male": "Mężczyzna",
+					"female": "Kobieta"
+				},
+				"weight": "Waga, kg",
+				"height": "Wzrost, cm",
+				"age": "Wiek, lat",
+				"levelOfActivity": {
+					"title": "Poziom aktywności",
+					"levels": {
+						"sedentary": "Siedzący",
+						"lightlyActive": "Lekko aktywny",
+						"moderatelyActive": "Umiarkowanie aktywny",
+						"active": "Aktywny",
+						"extremelyActive": "Bardzo aktywny"
+					}
+				}
+			}
+		},
+		"plans": {
+			"title": "Plany",
+			"tabTitle": "plany",
+			"menu": {
+				"title": "Menu",
+				"day": "dzień",
+				"type": {
+					"breakfast": "Śniadanie",
+					"lunch": "Obiad",
+					"dinner": "Kolacja"
+				},
+				"showFor": "Pokaż dla",
+				"all": "Wszystkie",
+				"ingredients": {
+					"title": "Składniki",
+					"amount": "Ilość"
+				},
+				"recipes": "przepisy",
+				"nutrients": {
+					"title": "składniki odżywcze",
+					"carbohydrates": "węglowodany",
+					"energy": "energia",
+					"fat": "tłuszcz",
+					"protein": "białko"
+				},
+				"portions": {
+					"title": "Porcje",
+					"inputHint": "Możesz poprawić wagę głównego dania",
+					"dishWeight": "Waga głównego dania",
+					"for": "Dla",
+					"sizeOfPortion": "Rozmiar porcji",
+					"totalWeight": "Całkowita waga"
+				},
+				"groceryBtn": "Dodaj do listy zakupów"
+			}
+		},
+		"grocery": {
+			"title": "Zakupy",
+			"tabTitle": "Zakupy",
+			"addGrocery": {
+				"title": "Dodaj produkt",
+				"groceryName": "Nazwa produktu",
+				"category": "Kategoria",
+				"selectCategory": "Wybierz kategorię",
+				"addNewGrocery": "Dodaj {{groceryName}} jako nowy produkt",
+				"type": {
+					"title": "Typ",
+					"selectType": "Wybierz typ",
+					"g": "g",
+					"ml": "ml",
+					"pieces": "sztuki"
+				},
+				"amount": "Ilość",
+				"enterAmount": "Wprowadź ilość",
+				"addToListBtn": "Dodaj produkt do listy"
+			}
+		}
+	},
+	"ingredients": {
+		"cottageCheese": "Twaróg",
+		"eggs": "Jajka",
+		"flour": "Mąka",
+		"bakingPowder": "Proszek do pieczenia",
+		"milk": "Mleko",
+		"sourCreme": "Śmietana",
+		"raspberry": "Malina",
+		"salt": "Sól",
+		"udonNoodles": "Makaron Udon",
+		"vegetableOil": "Olej roślinny",
+		"zucchini": "Cukinia",
+		"curryPaste": "Pasta curry",
+		"shrimp": "Krewetki",
+		"coconutMilk": "Mleko kokosowe",
+		"coriander": "Kolendra",
+		"tomato": "Pomidor",
+		"beans": "Fasola",
+		"butter": "Masło",
+		"sugar": "Cukier",
+		"garlic": "Czosnek",
+		"onion": "Cebula",
+		"pepper": "Pieprz",
+		"oliveOil": "Oliwa z oliwek",
+		"chickenBreast": "Pierś z kurczaka",
+		"beef": "Wołowina",
+		"pork": "Wieprzowina",
+		"potatoes": "Ziemniaki",
+		"carrots": "Marchewka",
+		"spinach": "Szpinak",
+		"rice": "Ryż",
+		"pasta": "Makaron",
+		"cheese": "Ser",
+		"lemon": "Cytryna",
+		"vinegar": "Ocet",
+		"honey": "Miód",
+		"oats": "Płatki owsiane",
+		"yeast": "Drożdże",
+		"bakingSoda": "Soda oczyszczona",
+		"water": "Woda",
+		"mushrooms": "Grzyby",
+		"basil": "Bazylia",
+		"parsley": "Pietruszka",
+		"cucumber": "Ogórek",
+		"lettuce": "Sałata",
+		"broccoli": "Brokuły",
+		"chickenThigh": "Udo kurczaka",
+		"chiliPowder": "Chili w proszku",
+		"paprika": "Papryka",
+		"ginger": "Imbir",
+		"soySauce": "Sos sojowy"
+	},
+	"categories": {
+		"dairy": "Nabiał",
+		"bakingSupplies": "Produkty do pieczenia",
+		"fruits": "Owoce",
+		"meat": "Mięso",
+		"seafood": "Owoce morza",
+		"vegetables": "Warzywa",
+		"grainsAndCereals": "Zboża i płatki",
+		"nutsAndSeeds": "Orzechy i nasiona",
+		"oilsAndFats": "Olej i tłuszcze",
+		"cannedGoods": "Produkty w puszkach",
+		"seasoningsAndSpices": "Przyprawy i zioła",
+		"condimentsAndSauces": "Przyprawy i sosy",
+		"eggs": "Jajka",
+		"dairyAlternatives": "Alternatywy dla nabiału",
+		"herbs": "Zioła",
+		"household": "Artykuły gospodarstwa domowego"
+	},
+	"dishes": {
+		"breakfast": {
+			"cottageCheesePancakes": {
+				"name": "Placek z twarogiem, śmietaną (18%) i malinami.",
+				"recipe": [
+					"Rozkrusz twaróg.",
+					"Dodaj jajka i mleko.",
+					"Mieszaj, aż uzyskasz gładką konsystencję.",
+					"Przesiej mąkę z proszkiem do pieczenia.",
+					"Dodaj szczyptę soli do smaku.",
+					"Mieszaj, aż masa będzie gładka.",
+					"Konsystencja powinna być jak bardzo gęsta śmietana.",
+					"Jeśli patelnia nie jest nieprzywierająca, posmaruj ją odrobiną oleju słonecznikowego lub innego oleju do smażenia.",
+					"Rozprowadź olej pędzelkiem po patelni.",
+					"Na rozgrzaną patelnię nakładaj łyżką porcje ciasta, jedna łyżka to jeden placek z twarogu.",
+					"Podawaj ze śmietaną i malinami."
+				]
+			},
+			"eggsWithBeansInTomatoSous": {
+				"name": "Jajka z fasolą w sosie pomidorowym",
+				"recipe": [
+					"Ugotuj jajka według uznania.",
+					"Przygotuj fasolę w sosie pomidorowym.",
+					"Połącz i podawaj."
+				]
+			}
+		},
+		"lunch": {
+			"udonShrimpStirFry": {
+				"name": "Udon Noodles with Shrimp and Zucchini",
+				"recipe": [
+					"Cook the noodles according to the package instructions.",
+					"Wash the zucchini and cut it into cubes.",
+					"Defrost the shrimp if frozen, then peel and clean them.",
+					"Heat the oil in a large pan. Add the zucchini and stir-fry for about 6 minutes.",
+					"Meanwhile, add the curry paste.",
+					"Add the shrimp and stir-fry on high heat for about 1 minute.",
+					"Add the turmeric, season with salt, and stir.",
+					"Pour in the coconut milk and bring to a boil.",
+					"Cook for about 2 minutes.",
+					"Add the cooked, drained noodles, mix, and heat through.",
+					"Serve topped with fresh coriander leaves."
+				]
+			}
+		},
+		"dinner": {}
+	}
+}

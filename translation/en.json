@@ -1,0 +1,215 @@
+{
+	"screens": {
+		"settings": {
+			"title": "Settings",
+			"tabTitle": "settings",
+			"addUserBtn": "Add User",
+			"age": "Age",
+			"height": "Height",
+			"weight": "Weight",
+			"sex": "Sex",
+			"energy": "Energy per day",
+			"user": {
+				"title": "User",
+				"name": "Name",
+				"sex": {
+					"title": "Sex",
+					"male": "Male",
+					"female": "Female"
+				},
+				"weight": "Weight, kg",
+				"height": "Height, cm",
+				"age": "Age, years",
+				"levelOfActivity": {
+					"title": "Level of Activity",
+					"levels": {
+						"sedentary": "Sedentary",
+						"lightlyActive": "Lightly active",
+						"moderatelyActive": "Moderately active",
+						"active": "Active",
+						"extremelyActive": "Extremely active"
+					}
+				}
+			}
+		},
+		"plans": {
+			"title": "Plans",
+			"tabTitle": "plans",
+			"menu": {
+				"title": "Menu",
+				"day": "day",
+				"type": {
+					"breakfast": "Breakfast",
+					"lunch": "Lunch",
+					"dinner": "Dinner"
+				},
+				"showFor": "Show for",
+				"all": "All",
+				"ingredients": {
+					"title": "Ingredients",
+					"amount": "Amount"
+				},
+				"recipes": "recipes",
+				"nutrients": {
+					"title": "nutrients",
+					"carbohydrates": "carbohydrates",
+					"energy": "energy",
+					"fat": "fat",
+					"protein": "protein"
+				},
+				"portions": {
+					"title": "Portions",
+					"inputHint": "You can correct main dish weight",
+					"dishWeight": "Main dish weight",
+					"for": "For",
+					"sizeOfPortion": "Size of portion",
+					"totalWeight": "Total weight"
+				},
+				"groceryBtn": "Add to grocery list"
+			}
+		},
+		"grocery": {
+			"title": "Grocery",
+			"tabTitle": "Grocery",
+			"addGrocery": {
+				"title": "Add Grocery",
+				"groceryName": "Grocery Name",
+				"category": "Category",
+				"selectCategory": "Select Category",
+				"addNewGrocery": "Add {{groceryName}} as a new grocery",
+				"type": {
+					"title": "Type",
+					"selectType": "Select Type",
+					"g": "g",
+					"ml": "ml",
+					"pieces": "pieces"
+				},
+				"amount": "Amount",
+				"enterAmount": "Enter Amount",
+				"addToListBtn": "Add Grocery to List"
+			}
+		}
+	},
+	"dishType": {
+		"breakfast": "Breakfast",
+		"lunch": "Lunch",
+		"dinner": "Dinner"
+	},
+	"ingredients": {
+		"cottageCheese": "Cottage Cheese",
+		"eggs": "Eggs",
+		"flour": "Flour",
+		"bakingPowder": "Baking Powder",
+		"milk": "Milk",
+		"sourCreme": "Sour Creme",
+		"raspberry": "Raspberry",
+		"salt": "Salt",
+		"udonNoodles": "Udon Noodles",
+		"vegetableOil": "Vegetable Oil",
+		"zucchini": "Zucchini",
+		"curryPaste": "Curry Paste",
+		"shrimp": "Shrimp",
+		"coconutMilk": "Coconut Milk",
+		"coriander": "Coriander",
+		"tomato": "Tomato",
+		"beans": "Beans",
+		"butter": "Butter",
+		"sugar": "Sugar",
+		"garlic": "Garlic",
+		"onion": "Onion",
+		"pepper": "Pepper",
+		"oliveOil": "Olive Oil",
+		"chickenBreast": "Chicken Breast",
+		"beef": "Beef",
+		"pork": "Pork",
+		"potatoes": "Potatoes",
+		"carrots": "Carrots",
+		"spinach": "Spinach",
+		"rice": "Rice",
+		"pasta": "Pasta",
+		"cheese": "Cheese",
+		"lemon": "Lemon",
+		"vinegar": "Vinegar",
+		"honey": "Honey",
+		"oats": "Oats",
+		"yeast": "Yeast",
+		"bakingSoda": "Baking Soda",
+		"water": "Water",
+		"mushrooms": "Mushrooms",
+		"basil": "Basil",
+		"parsley": "Parsley",
+		"cucumber": "Cucumber",
+		"lettuce": "Lettuce",
+		"broccoli": "Broccoli",
+		"chickenThigh": "Chicken Thigh",
+		"chiliPowder": "Chili Powder",
+		"paprika": "Paprika",
+		"ginger": "Ginger",
+		"soySauce": "Soy Sauce"
+	},
+	"categories": {
+		"dairy": "Dairy",
+		"bakingSupplies": "Baking Supplies",
+		"fruits": "Fruits",
+		"meat": "Meat",
+		"seafood": "Seafood",
+		"vegetables": "Vegetables",
+		"grainsAndCereals": "Grains and Cereals",
+		"nutsAndSeeds": "Nuts and Seeds",
+		"oilsAndFats": "Oils and Fats",
+		"cannedGoods": "Canned Goods",
+		"seasoningsAndSpices": "Seasonings and Spices",
+		"condimentsAndSauces": "Condiments and Sauces",
+		"eggs": "Eggs",
+		"dairyAlternatives": "Dairy Alternatives",
+		"herbs": "Herbs",
+		"household": "Household"
+	},
+	"dishes": {
+		"breakfast": {
+			"cottageCheesePancakes": {
+				"name": "Cottage Cheese Pancakes with sour cream (18%) and raspberry.",
+				"recipe": [
+					"Crumble the cottage cheese.",
+					"Add eggs and milk.",
+					"Mix until smooth.",
+					"Sift the flour with baking powder.",
+					"Add a pinch of salt to taste.",
+					"Mix until smooth.",
+					"The consistency should be like very thick sour cream.",
+					"If the pan is not non-stick (steel), grease it with a small amount of sunflower oil or cooking oil.",
+					"Spread the oil with a brush over the pan.",
+					"Place spoonfuls of batter onto the heated pan, one spoonful = one cottage cheese pancake.",
+					"Serve with sour cream and raspberry."
+				]
+			},
+			"eggsWithBeansInTomatoSous": {
+				"name": "Eggs with beans in tomato sauce",
+				"recipe": [
+					"Cook eggs to your preference.",
+					"Prepare beans in tomato sauce.",
+					"Combine and serve."
+				]
+			}
+		},
+		"lunch": {
+			"udonShrimpStirFry": {
+				"name": "Udon Noodles with Shrimp and Zucchini",
+				"recipe": [
+					"Cook the noodles according to the package instructions.",
+					"Wash the zucchini and cut it into cubes.",
+					"Defrost the shrimp if frozen, then peel and clean them.",
+					"Heat the oil in a large pan. Add the zucchini and stir-fry for about 6 minutes.",
+					"Meanwhile, add the curry paste.",
+					"Add the shrimp and stir-fry on high heat for about 1 minute.",
+					"Add the turmeric, season with salt, and stir.",
+					"Pour in the coconut milk and bring to a boil.",
+					"Cook for about 2 minutes.",
+					"Add the cooked, drained noodles, mix, and heat through.",
+					"Serve topped with fresh coriander leaves."
+				]
+			}
+		},
+		"dinner": {}
+	}
+}
