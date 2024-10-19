@@ -1,16 +1,26 @@
 import { useMenuItem } from "@/hooks/useMenuItem";
 import { useStorage } from "@/useStorage";
 import { prepareMealDataForUsers } from "@/utils/prepareMealDataForUsers";
-import { useWindowDimensions, Image } from "react-native";
 import { MenuItem } from "./MenuItem";
 import { MenuBottomSheet } from "./MenuBottomSheet";
 import { useMenuGrocery } from "@/hooks/useMenuGrocery";
+import { BottomSheetModalRef } from "../BottomSheetModal";
+import { useRef } from "react";
 
-export const CarouselItem = ({ item, bottomSheetRef, closeBottomSheet }) => {
+export const CarouselItem = ({ item }) => {
 	const { dishes, type, image } = item;
 
-	const { width } = useWindowDimensions();
 	const { data: users, loading } = useStorage("users");
+
+	const bottomSheetRef = useRef<BottomSheetModalRef>(null);
+
+	const openBottomSheet = () => {
+		bottomSheetRef.current?.present();
+	};
+
+	const closeBottomSheet = () => {
+		bottomSheetRef.current?.close();
+	};
 
 	const preparedDataForUsers = prepareMealDataForUsers({
 		users: users,
@@ -50,7 +60,7 @@ export const CarouselItem = ({ item, bottomSheetRef, closeBottomSheet }) => {
 				dishName={dishes[0].name}
 				type={type}
 				recipe={dishes[0].recipe}
-				style={{ width: width - 32, flex: 1 }}
+				openBottomSheet={openBottomSheet}
 			/>
 			<MenuBottomSheet
 				ref={bottomSheetRef}

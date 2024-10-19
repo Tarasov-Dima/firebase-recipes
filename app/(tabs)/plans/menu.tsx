@@ -37,7 +37,7 @@ const Menu = () => {
 				visitedDays={visitedDays}
 				markDayAsVisited={markDayAsVisited}
 			/>
-			<MenuCarousel data={meals} />
+			<MenuCarousel data={meals} key={selectedDay} />
 		</>
 	);
 };

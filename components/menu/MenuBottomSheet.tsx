@@ -35,7 +35,7 @@ export const MenuBottomSheet = forwardRef<
 				<View
 					style={{
 						flex: 1,
-						marginBottom: bottom,
+						marginBottom: bottom * 3,
 						gap: 8,
 						paddingHorizontal: 8,
 					}}

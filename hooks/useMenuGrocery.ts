@@ -2,15 +2,15 @@ import { useSnackbar } from "@/providers/SnackbarProvider";
 import { useGroceryList } from "@/storage/useGroceryList";
 import { useState } from "react";
 
-export const useMenuGrocery = (allIngredients, closeBottomSheet) => {
+export const useMenuGrocery = (allGroceries, closeBottomSheet) => {
 	const [unselectedGroceries, setUnselectedGroceries] = useState([]);
-	const addIngredients = useGroceryList((state) => state.addIngredients);
+	const addGroceries = useGroceryList((state) => state.addGroceries);
 
 	const { showSnackbar } = useSnackbar();
 
-	const selectedGroceries = allIngredients
-		.filter((ingredient) => {
-			return unselectedGroceries.some((id) => id === ingredient.id);
+	const selectedGroceries = allGroceries
+		.filter((grocery) => {
+			return unselectedGroceries.some((id) => id === grocery.id);
 		})
 		.map((grocery) => grocery.id);
 
@@ -25,10 +25,10 @@ export const useMenuGrocery = (allIngredients, closeBottomSheet) => {
 	};
 
 	const onAddToGroceryList = () => {
-		const filteredIngredients = allIngredients.filter((ingredient) => {
-			return !unselectedGroceries.some((id) => id === ingredient.id);
+		const filteredGroceries = allGroceries.filter((grocery) => {
+			return !unselectedGroceries.some((id) => id === grocery.id);
 		});
-		addIngredients(filteredIngredients);
+		addGroceries(filteredGroceries);
 		closeBottomSheet();
 		setUnselectedGroceries([]);
 		showSnackbar({ message: "Groceries added to list" });

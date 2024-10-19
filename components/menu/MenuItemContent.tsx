@@ -9,10 +9,16 @@ export const MenuItemContent = ({
 	allIngredients,
 	recipe,
 	selectedUserNutrients,
+	openBottomSheet,
 }) => {
 	switch (menuChoiceType) {
 		case "ingredients": {
-			return <IngredientsView rowItems={allIngredients} />;
+			return (
+				<IngredientsView
+					rowItems={allIngredients}
+					onOpenBottomSheet={openBottomSheet}
+				/>
+			);
 		}
 		case "recipe": {
 			return <RecipeView recipe={recipe} />;

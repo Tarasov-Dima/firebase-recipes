@@ -11,36 +11,38 @@ export const PaginationDots = ({ scrollX, numberOfDots }) => {
 	const { width } = useWindowDimensions();
 	const { theme } = useThemeContext();
 
+	const getAnimatedDotStyle = (index: number) => {
+		return useAnimatedStyle(() => {
+			const opacity = interpolate(
+				scrollX.value,
+				[(index - 1) * width, index * width, (index + 1) * width],
+				[0.5, 1, 0.5],
+				Extrapolation.CLAMP
+			);
+
+			const scale = interpolate(
+				scrollX.value,
+				[(index - 1) * width, index * width, (index + 1) * width],
+				[0.8, 1.3, 0.8],
+				Extrapolation.CLAMP
+			);
+
+			return {
+				opacity,
+				transform: [{ scale }],
+			};
+		});
+	};
+
 	return (
 		<View style={styles.paginationContainer}>
 			{Array.from({ length: numberOfDots }).map((_, index) => {
-				const animatedDotStyle = useAnimatedStyle(() => {
-					const opacity = interpolate(
-						scrollX.value,
-						[(index - 1) * width, index * width, (index + 1) * width],
-						[0.5, 1, 0.5],
-						Extrapolation.CLAMP
-					);
-
-					const scale = interpolate(
-						scrollX.value,
-						[(index - 1) * width, index * width, (index + 1) * width],
-						[0.8, 1.3, 0.8],
-						Extrapolation.CLAMP
-					);
-
-					return {
-						opacity,
-						transform: [{ scale }],
-					};
-				});
-
 				return (
 					<Animated.View
 						key={index}
 						style={[
 							styles.dot,
-							animatedDotStyle,
+							getAnimatedDotStyle(index),
 							{ backgroundColor: theme.colors.primary },
 						]}
 					/>
