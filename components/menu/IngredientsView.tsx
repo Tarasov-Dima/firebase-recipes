@@ -1,5 +1,6 @@
 import { type Ingredient } from "@/types";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { DataTable, IconButton } from "react-native-paper";
 
 type IngredientsProps = {
@@ -11,6 +12,10 @@ export const IngredientsView = ({
 	rowItems,
 	onOpenBottomSheet,
 }: IngredientsProps) => {
+	const { t } = useTranslation("translation", {
+		keyPrefix: "screens",
+	});
+
 	const renderRows = () => {
 		return rowItems.map(({ name, amount }) => (
 			<DataTable.Row key={name}>
@@ -25,8 +30,10 @@ export const IngredientsView = ({
 		<>
 			<DataTable>
 				<DataTable.Header>
-					<DataTable.Title>Ingredients</DataTable.Title>
-					<DataTable.Title numeric>Amount</DataTable.Title>
+					<DataTable.Title>{t("plans.menu.ingredients.title")}</DataTable.Title>
+					<DataTable.Title numeric>
+						{t("plans.menu.ingredients.amount")}
+					</DataTable.Title>
 				</DataTable.Header>
 				{renderRows()}
 			</DataTable>

@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/theme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { SnackbarProvider } from "@/providers/SnackbarProvider";
+import "@/i18n";
 
 const RootLayout = () => {
 	return (

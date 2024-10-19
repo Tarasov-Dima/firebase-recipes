@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { Button, Dialog, FAB, Portal, Text } from "react-native-paper";
 import Animated, {
@@ -18,7 +19,10 @@ export const ListFABs = ({
 	onCopy,
 	copyDisabled,
 }) => {
-	// const [menuVisible, setMenuVisible] = useState(false);
+	const { t } = useTranslation("translation", {
+		keyPrefix: "screens",
+	});
+
 	const [dialogVariant, setDialogVariant] = useState(undefined);
 	const [dialogVisible, setDialogVisible] = useState(false);
 
@@ -159,19 +163,27 @@ export const ListFABs = ({
 			/>
 			<Portal>
 				<Dialog visible={dialogVisible} onDismiss={hideDialog}>
-					<Dialog.Title>{isResetDialog ? "Clear" : "Unselect"}</Dialog.Title>
+					<Dialog.Title>
+						{isResetDialog
+							? t("grocery.dialog.clearTitle")
+							: t("grocery.dialog.unselectTitle")}
+					</Dialog.Title>
 					<Dialog.Content>
 						<Text variant='bodyMedium'>
 							{isResetDialog
-								? "Do you want to clear the list?"
-								: "Do you want unselect all groceries?"}
+								? t("grocery.dialog.clearMessage")
+								: t("grocery.dialog.unselectMessage")}
 						</Text>
 					</Dialog.Content>
 					<Dialog.Actions>
 						<Button onPress={isResetDialog ? handleReset : handleUnselect}>
-							{isResetDialog ? "Clear" : "Unselect"}
+							{isResetDialog
+								? t("grocery.dialog.actions.clear")
+								: t("grocery.dialog.actions.unselect")}
 						</Button>
-						<Button onPress={hideDialog}>Cancel</Button>
+						<Button onPress={hideDialog}>
+							{t("grocery.dialog.actions.cancel")}
+						</Button>
 					</Dialog.Actions>
 				</Dialog>
 			</Portal>

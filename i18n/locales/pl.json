@@ -1,14 +1,28 @@
 {
 	"screens": {
+		"snackbar": {
+			"groceriesAddedToList": "Produkty dodane do listy",
+			"groceriesCopiedToClipboard": "Produkty skopiowane do schowka!"
+		},
 		"settings": {
 			"title": "Ustawienia",
 			"tabTitle": "ustawienia",
 			"addUserBtn": "Dodaj użytkownika",
-			"age": "Wiek",
-			"height": "Wzrost",
-			"weight": "Waga",
-			"sex": "Płeć",
-			"energy": "Energia na dzień",
+			"age": "Wiek {{age}} lat",
+			"height": "Wzrost {{height}} cm",
+			"weight": "Waga {{weight}} kg",
+			"sex": "Płeć: {{sex}}",
+			"energy": "Energia: {{energy}} kcal dziennie",
+			"alert": {
+				"deleteUserData": {
+					"title": "Usuń dane użytkownika",
+					"message": "Czy chcesz usunąć dane użytkownika {{name}}?",
+					"options": {
+						"no": "Nie",
+						"yes": "Tak"
+					}
+				}
+			},
 			"user": {
 				"title": "Użytkownik",
 				"name": "Imię",
@@ -20,6 +34,9 @@
 				"weight": "Waga, kg",
 				"height": "Wzrost, cm",
 				"age": "Wiek, lat",
+				"kg": "kg",
+				"cm": "cm",
+				"years": "lat",
 				"levelOfActivity": {
 					"title": "Poziom aktywności",
 					"levels": {
@@ -29,7 +46,9 @@
 						"active": "Aktywny",
 						"extremelyActive": "Bardzo aktywny"
 					}
-				}
+				},
+				"caloriesPerDay": "{{calories}} kalorii dziennie",
+				"save": "Zapisz"
 			}
 		},
 		"plans": {
@@ -43,7 +62,7 @@
 					"lunch": "Obiad",
 					"dinner": "Kolacja"
 				},
-				"showFor": "Pokaż dla",
+				"showFor": "Pokaż dla:",
 				"all": "Wszystkie",
 				"ingredients": {
 					"title": "Składniki",
@@ -63,14 +82,15 @@
 					"dishWeight": "Waga głównego dania",
 					"for": "Dla",
 					"sizeOfPortion": "Rozmiar porcji",
-					"totalWeight": "Całkowita waga"
+					"totalWeight": "Całkowita waga: ≈ {{ totalWeight}} g",
+					"g": "g"
 				},
 				"groceryBtn": "Dodaj do listy zakupów"
 			}
 		},
 		"grocery": {
 			"title": "Zakupy",
-			"tabTitle": "Zakupy",
+			"tabTitle": "zakupy",
 			"addGrocery": {
 				"title": "Dodaj produkt",
 				"groceryName": "Nazwa produktu",
@@ -87,6 +107,25 @@
 				"amount": "Ilość",
 				"enterAmount": "Wprowadź ilość",
 				"addToListBtn": "Dodaj produkt do listy"
+			},
+			"groceryListAlert": {
+				"title": "Wszystkie produkty wybrane",
+				"subtitle": "Masz wszystkie produkty. Czy chcesz wyczyścić listę?",
+				"actions": {
+					"clear": "Wyczyść",
+					"cancel": "Anuluj"
+				}
+			},
+			"dialog": {
+				"clearTitle": "Wyczyść",
+				"unselectTitle": "Odznacz",
+				"clearMessage": "Czy chcesz wyczyścić listę?",
+				"unselectMessage": "Czy chcesz odznaczyć wszystkie produkty?",
+				"actions": {
+					"clear": "Wyczyść",
+					"unselect": "Odznacz",
+					"cancel": "Anuluj"
+				}
 			}
 		}
 	},

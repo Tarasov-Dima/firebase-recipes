@@ -1,14 +1,28 @@
 {
 	"screens": {
+		"snackbar": {
+			"groceriesAddedToList": "Groceries added to the list",
+			"groceriesCopiedToClipboard": "Groceries copied to clipboard!"
+		},
 		"settings": {
 			"title": "Settings",
 			"tabTitle": "settings",
 			"addUserBtn": "Add User",
-			"age": "Age",
-			"height": "Height",
-			"weight": "Weight",
-			"sex": "Sex",
-			"energy": "Energy per day",
+			"age": "Age {{age}} years",
+			"height": "Height {{height}} cm",
+			"weight": "Weight {{weight}} kg",
+			"sex": "Sex: {{sex}}",
+			"energy": "Energy: {{energy}} kcal per day",
+			"alert": {
+				"deleteUserData": {
+					"title": "Delete user data",
+					"message": "Do you want to delete {{name}}'s data?",
+					"options": {
+						"no": "No",
+						"yes": "Yes"
+					}
+				}
+			},
 			"user": {
 				"title": "User",
 				"name": "Name",
@@ -20,6 +34,9 @@
 				"weight": "Weight, kg",
 				"height": "Height, cm",
 				"age": "Age, years",
+				"kg": "kg",
+				"cm": "cm",
+				"years": "years",
 				"levelOfActivity": {
 					"title": "Level of Activity",
 					"levels": {
@@ -29,7 +46,9 @@
 						"active": "Active",
 						"extremelyActive": "Extremely active"
 					}
-				}
+				},
+				"caloriesPerDay": "{{calories}} calories per day",
+				"save": "Save"
 			}
 		},
 		"plans": {
@@ -43,7 +62,7 @@
 					"lunch": "Lunch",
 					"dinner": "Dinner"
 				},
-				"showFor": "Show for",
+				"showFor": "Show for:",
 				"all": "All",
 				"ingredients": {
 					"title": "Ingredients",
@@ -51,7 +70,7 @@
 				},
 				"recipes": "recipes",
 				"nutrients": {
-					"title": "nutrients",
+					"title": "Nutrients",
 					"carbohydrates": "carbohydrates",
 					"energy": "energy",
 					"fat": "fat",
@@ -63,14 +82,15 @@
 					"dishWeight": "Main dish weight",
 					"for": "For",
 					"sizeOfPortion": "Size of portion",
-					"totalWeight": "Total weight"
+					"totalWeight": "Total weight: ≈ {{ totalWeight}} g",
+					"g": "g"
 				},
 				"groceryBtn": "Add to grocery list"
 			}
 		},
 		"grocery": {
 			"title": "Grocery",
-			"tabTitle": "Grocery",
+			"tabTitle": "grocery",
 			"addGrocery": {
 				"title": "Add Grocery",
 				"groceryName": "Grocery Name",
@@ -87,6 +107,25 @@
 				"amount": "Amount",
 				"enterAmount": "Enter Amount",
 				"addToListBtn": "Add Grocery to List"
+			},
+			"groceryListAlert": {
+				"title": "All Groceries Selected",
+				"subtitle": "You got all groceries. Do you want to clear the list?",
+				"actions": {
+					"clear": "Clear",
+					"cancel": "Cancel"
+				}
+			},
+			"dialog": {
+				"clearTitle": "Clear",
+				"unselectTitle": "Unselect",
+				"clearMessage": "Do you want to clear the list?",
+				"unselectMessage": "Do you want to unselect all groceries?",
+				"actions": {
+					"clear": "Clear",
+					"unselect": "Unselect",
+					"cancel": "Cancel"
+				}
 			}
 		}
 	},

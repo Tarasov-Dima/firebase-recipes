@@ -12,10 +12,15 @@ import { groupAndSortByCategory } from "@/utils/groupAndSortByCategory";
 import { setStringAsync } from "expo-clipboard";
 import { useSnackbar } from "@/providers/SnackbarProvider";
 import { ingredients } from "@/data/ingredients";
+import { useTranslation } from "react-i18next";
 
 const ingredientsArray = Object.values(ingredients);
 
 const GroceryTab = () => {
+	const { t } = useTranslation("translation", {
+		keyPrefix: "screens",
+	});
+
 	const bottomSheetRef = useRef<BottomSheetModalRef>(null);
 	const { showSnackbar } = useSnackbar();
 
@@ -69,7 +74,7 @@ const GroceryTab = () => {
 			.join("\n\n");
 
 		await setStringAsync(groceriesForCopy);
-		showSnackbar({ message: "Groceries copied to clipboard!" });
+		showSnackbar({ message: t("snackbar.groceriesCopiedToClipboard") });
 	};
 
 	const isEmptyList = groceries.length === 0;
@@ -77,8 +82,10 @@ const GroceryTab = () => {
 	useEffect(() => {
 		if (!isEmptyList && selectedGroceries.length === groceries.length) {
 			groceryListAlert({
-				title: "All Groceries Selected",
-				subtitle: "You got all groceries. Do you want to clear the list?",
+				title: t("grocery.groceryListAlert.title"),
+				subtitle: t("grocery.groceryListAlert.subtitle"),
+				positiveAction: t("grocery.groceryListAlert.actions.clear"),
+				negativeAction: t("grocery.groceryListAlert.actions.cancel"),
 				onPress: resetAll,
 			});
 		}
@@ -137,17 +144,23 @@ const GroceryTab = () => {
 
 export default GroceryTab;
 
-const groceryListAlert = ({ title, subtitle, onPress }) => {
+const groceryListAlert = ({
+	title,
+	subtitle,
+	positiveAction,
+	negativeAction,
+	onPress,
+}) => {
 	Alert.alert(
 		title,
 		subtitle,
 		[
 			{
-				text: "No",
+				text: negativeAction,
 				style: "cancel",
 			},
 			{
-				text: "Yes",
+				text: positiveAction,
 				onPress: onPress,
 			},
 		],

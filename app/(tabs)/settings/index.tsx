@@ -6,8 +6,12 @@ import { useCallback } from "react";
 import { FlashList } from "@shopify/flash-list";
 import { User } from "@/types";
 import { ItemSeparatorComponent } from "@/components/ItemSeparatorComponent";
+import { useTranslation } from "react-i18next";
 
 const SettingsTab = () => {
+	const { t } = useTranslation("translation", {
+		keyPrefix: "screens",
+	});
 	const { data: users, refetch, setValue } = useStorage<User[]>("users");
 
 	useFocusEffect(
@@ -18,17 +22,16 @@ const SettingsTab = () => {
 
 	const onDeleteUser = (id: User["id"], name) => {
 		const filteredUsers = users?.filter((user) => user.id !== id);
-
 		Alert.alert(
-			`Delete user data`,
-			`Do you want to delete ${name}'s data?`,
+			t("settings.alert.deleteUserData.title"),
+			t("settings.alert.deleteUserData.message", { name }),
 			[
 				{
-					text: "No",
+					text: t("settings.alert.deleteUserData.options.no"),
 					style: "cancel",
 				},
 				{
-					text: "Yes",
+					text: t("settings.alert.deleteUserData.options.yes"),
 					onPress: () => setValue(filteredUsers),
 				},
 			],
@@ -63,12 +66,16 @@ const SettingsTab = () => {
 						)}
 					/>
 					<Card.Content>
-						<Text variant='titleMedium'>Age: {age} years</Text>
-						<Text variant='titleMedium'>Height: {height} cm</Text>
-						<Text variant='titleMedium'>Weight: {weight} kg</Text>
-						<Text variant='titleMedium'>Sex: {sex}</Text>
+						<Text variant='titleMedium'>{t("settings.age", { age })}</Text>
 						<Text variant='titleMedium'>
-							Energy per day: {calculateAMR} Cal
+							{t("settings.height", { height })}
+						</Text>
+						<Text variant='titleMedium'>
+							{t("settings.weight", { weight })}
+						</Text>
+						<Text variant='titleMedium'>{t("settings.sex", { sex })}</Text>
+						<Text variant='titleMedium'>
+							{t("settings.energy", { energy: calculateAMR })}
 						</Text>
 					</Card.Content>
 				</Card>
@@ -97,7 +104,7 @@ const SettingsTab = () => {
 					<FAB
 						icon='plus'
 						style={{ position: "absolute", margin: 16, right: 0, bottom: 0 }}
-						label='add user'
+						label={t("settings.addUserBtn")}
 					/>
 				)}
 			</Link>

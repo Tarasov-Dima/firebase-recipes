@@ -1,4 +1,4 @@
-import i18n from "../i18n";
+import i18n from "../translation/i18n";
 
 // Define the supported language codes
 export type SupportedLanguage = "en" | "pl" | "uk";

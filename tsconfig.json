@@ -6,7 +6,12 @@
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "resolveJsonModule": true, // This allows you to import JSON files if needed for translations
+    "esModuleInterop": true, // Allows for correct handling of module imports
+    "skipLibCheck": true, // Optional: To speed up TypeScript checks and avoid type definition issues
+    "allowSyntheticDefaultImports": true, // Required to support synthetic imports (like importing i18n)
+    "noEmit": true // Ensure no transpiled files are emitted
   },
   "include": [
     "**/*.ts",

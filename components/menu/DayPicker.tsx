@@ -1,6 +1,7 @@
 import { UseDayPickerReturn } from "@/hooks/useDayPicker";
 import { useThemeContext } from "@/theme";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList } from "react-native-gesture-handler";
 import { Button, Card, Chip, Icon } from "react-native-paper";
 
@@ -13,6 +14,9 @@ export const DayPicker = ({
 	visitedDays,
 	markDayAsVisited,
 }: UseDayPickerReturn) => {
+	const { t } = useTranslation("translation", {
+		keyPrefix: "screens",
+	});
 	const { theme } = useThemeContext();
 	const [lastTap, setLastTap] = useState<number | null>(null);
 
@@ -60,7 +64,7 @@ export const DayPicker = ({
 				// selectedColor={selectedColor}
 				// showSelectedOverlay={isSelected}
 			>
-				Day {item}
+				{t("plans.menu.day")} {item}
 			</Button>
 		);
 	};

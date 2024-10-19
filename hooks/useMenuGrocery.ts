@@ -1,8 +1,12 @@
 import { useSnackbar } from "@/providers/SnackbarProvider";
 import { useGroceryList } from "@/storage/useGroceryList";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const useMenuGrocery = (allGroceries, closeBottomSheet) => {
+	const { t } = useTranslation("translation", {
+		keyPrefix: "screens",
+	});
 	const [unselectedGroceries, setUnselectedGroceries] = useState([]);
 	const addGroceries = useGroceryList((state) => state.addGroceries);
 
@@ -31,7 +35,7 @@ export const useMenuGrocery = (allGroceries, closeBottomSheet) => {
 		addGroceries(filteredGroceries);
 		closeBottomSheet();
 		setUnselectedGroceries([]);
-		showSnackbar({ message: "Groceries added to list" });
+		showSnackbar({ message: t("snackbar.groceriesAddedToList") });
 	};
 
 	return {

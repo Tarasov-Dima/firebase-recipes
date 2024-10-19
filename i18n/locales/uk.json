@@ -1,14 +1,28 @@
 {
 	"screens": {
+		"snackbar": {
+			"groceriesAddedToList": "Продукти додані до списку",
+			"groceriesCopiedToClipboard": "Продукти скопійовані в буфер обміну!"
+		},
 		"settings": {
 			"title": "Налаштування",
 			"tabTitle": "налаштування",
 			"addUserBtn": "Додати користувача",
-			"age": "Вік",
-			"height": "Зріст",
-			"weight": "Вага",
-			"sex": "Стать",
-			"energy": "Енергія на день",
+			"age": "Вік {{age}} років",
+			"height": "Зріст {{height}} см",
+			"weight": "Вага {{weight}} кг",
+			"sex": "Стать: {{sex}}",
+			"energy": "Енергія: {{energy}} ккал на день",
+			"alert": {
+				"deleteUserData": {
+					"title": "Видалити дані користувача",
+					"message": "Ви хочете видалити дані {{name}}?",
+					"options": {
+						"no": "Ні",
+						"yes": "Так"
+					}
+				}
+			},
 			"user": {
 				"title": "Користувач",
 				"name": "Ім'я",
@@ -20,6 +34,9 @@
 				"weight": "Вага, кг",
 				"height": "Зріст, см",
 				"age": "Вік, років",
+				"kg": "кг",
+				"cm": "см",
+				"years": "років",
 				"levelOfActivity": {
 					"title": "Рівень активності",
 					"levels": {
@@ -29,7 +46,9 @@
 						"active": "Активний",
 						"extremelyActive": "Дуже активний"
 					}
-				}
+				},
+				"caloriesPerDay": "{{calories}} калорій на день",
+				"save": "Зберегти"
 			}
 		},
 		"plans": {
@@ -43,7 +62,7 @@
 					"lunch": "обід",
 					"dinner": "вечеря"
 				},
-				"showFor": "Показати для",
+				"showFor": "Показати для:",
 				"all": "Усі",
 				"ingredients": {
 					"title": "Інгредієнти",
@@ -63,14 +82,15 @@
 					"dishWeight": "Вага основної страви",
 					"for": "Для",
 					"sizeOfPortion": "Розмір порції",
-					"totalWeight": "Загальна вага"
+					"totalWeight": "Загальна вага: ≈ {{ totalWeight}} г",
+					"g": "г"
 				},
 				"groceryBtn": "Додати до списку покупок"
 			}
 		},
 		"grocery": {
 			"title": "Продукти",
-			"tabTitle": "Продукти",
+			"tabTitle": "продукти",
 			"addGrocery": {
 				"title": "Додати продукт",
 				"groceryName": "Назва продукту",
@@ -87,6 +107,25 @@
 				"amount": "Кількість",
 				"enterAmount": "Введіть кількість",
 				"addToListBtn": "Додати продукт до списку"
+			},
+			"groceryListAlert": {
+				"title": "Вибрані всі продукти",
+				"subtitle": "Ви отримали всі продукти. Бажаєте очистити список?",
+				"actions": {
+					"clear": "Очистити",
+					"cancel": "Скасувати"
+				}
+			},
+			"dialog": {
+				"clearTitle": "Очистити",
+				"unselectTitle": "Зняти вибір",
+				"clearMessage": "Бажаєте очистити список?",
+				"unselectMessage": "Бажаєте зняти вибір з усіх продуктів?",
+				"actions": {
+					"clear": "Очистити",
+					"unselect": "Зняти вибір",
+					"cancel": "Скасувати"
+				}
 			}
 		}
 	},

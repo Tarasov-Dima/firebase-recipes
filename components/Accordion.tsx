@@ -31,7 +31,7 @@ export const Accordion = <T extends string>({
 
 	return (
 		<View style={{ gap: 6 }}>
-			<View style={{ flexDirection: "row", alignItems: "center" }}>
+			<View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
 				<Text>{title}</Text>
 				<Chip onPress={isDisable ? undefined : handlePress}>
 					{data[selected]}

@@ -1,5 +1,6 @@
 export type Sex = "male" | "female";
 
+// TODO: translation
 export const activityLevelsName = {
 	sedentary: "Sedentary",
 	lightlyActive: "Lightly active",

@@ -9,6 +9,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Accordion } from "../Accordion";
 import { useWindowDimensions, View } from "react-native";
+import { useTranslation } from "react-i18next";
 
 type MenuItemProps = {
 	preparedDataForUsers: PreparedDataForUser;
@@ -32,6 +33,9 @@ export const MenuItem = ({
 	dishName,
 	openBottomSheet,
 }: MenuItemProps) => {
+	const { t } = useTranslation("translation", {
+		keyPrefix: "screens",
+	});
 	const { width } = useWindowDimensions();
 	const [menuChoiceType, setMenuChoiceType] =
 		useState<MenuChoiceType>("ingredients");
@@ -54,7 +58,7 @@ export const MenuItem = ({
 				<Card.Content style={{ gap: 10 }}>
 					<Accordion
 						data={accordionData}
-						title='Show for: '
+						title={t("plans.menu.showFor")}
 						selected={selectedUserName}
 						setSelected={setSelectedUserName}
 					/>

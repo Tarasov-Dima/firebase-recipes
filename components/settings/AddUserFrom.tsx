@@ -7,6 +7,7 @@ import { useStorage } from "@/useStorage";
 import { activityLevelsName, Sex, User } from "@/types/user";
 import { ScreenContainer } from "../ScreenContainer";
 import { Accordion } from "../Accordion";
+import { useTranslation } from "react-i18next";
 
 type Activity = {
 	index: string;
@@ -43,6 +44,10 @@ const activityLevels: Record<string, Activity> = {
 };
 
 export const AddUserForm = () => {
+	const { t } = useTranslation("translation", {
+		keyPrefix: "screens",
+	});
+
 	const {
 		name: prevName,
 		sex: prevSex,
@@ -99,52 +104,54 @@ export const AddUserForm = () => {
 
 	return (
 		<ScreenContainer>
-			<Text>Name</Text>
+			<Text>{t("settings.user.name")}</Text>
 			<TextInput value={name} onChangeText={setName} />
-			<Text>Sex</Text>
+			<Text>{t("settings.user.sex.title")}</Text>
 			<SegmentedButtons
 				value={sex}
 				onValueChange={setSex as any}
 				buttons={[
 					{
 						value: "male",
-						label: "Male",
+						label: t("settings.user.sex.male"),
 					},
 					{
 						value: "female",
-						label: "Female",
+						label: t("settings.user.sex.female"),
 					},
 				]}
 			/>
 			<LabelInput
-				title='Weight, kg'
-				label='kg'
+				title={t("settings.user.weight")}
+				label={t("settings.user.kg")}
 				onChange={setWeight}
 				value={weight}
 			/>
 			<LabelInput
-				title='Height, cm'
-				label='cm'
+				title={t("settings.user.height")}
+				label={t("settings.user.cm")}
 				onChange={setHeight}
 				value={height}
 			/>
 			<LabelInput
-				title='Age, years'
-				label='years'
+				title={t("settings.user.age")}
+				label={t("settings.user.years")}
 				onChange={setAge}
 				value={age}
 			/>
 			<Accordion
-				title='Level of activity: '
+				title={t("settings.user.levelOfActivity.title")}
 				data={activityLevelsName}
 				selected={activityLevel}
 				setSelected={setActivityLevel}
 			/>
 			{!!calculateAMR && (
 				<>
-					<Text>{calculateAMR} calories per day</Text>
+					<Text>
+						{t("settings.user.caloriesPerDay", { calories: calculateAMR })}
+					</Text>
 					<Button onPress={handleSave} mode='contained'>
-						save
+						{t("settings.user.save")}
 					</Button>
 				</>
 			)}

@@ -47,7 +47,7 @@ export const BottomSheetInput = ({
 						borderColor: theme.colors.primary,
 					},
 				]}
-				placeholderTextColor={theme.colors.backdrop}
+				placeholderTextColor={theme.colors.text}
 				placeholder={isFocused ? placeholder : label}
 				{...rest}
 			/>

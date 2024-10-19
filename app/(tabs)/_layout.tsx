@@ -1,8 +1,13 @@
 import { Tabs } from "expo-router";
 import Entypo from "@expo/vector-icons/Entypo";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useTranslation } from "react-i18next";
 
 const TabsLayout = () => {
+	const { t } = useTranslation("translation", {
+		keyPrefix: "screens",
+	});
+
 	return (
 		<Tabs
 			screenOptions={{
@@ -13,6 +18,7 @@ const TabsLayout = () => {
 			<Tabs.Screen
 				name='settings'
 				options={{
+					tabBarLabel: t("settings.tabTitle"),
 					tabBarLabelStyle: {
 						fontSize: 14,
 					},
@@ -28,6 +34,7 @@ const TabsLayout = () => {
 			<Tabs.Screen
 				name='plans'
 				options={{
+					tabBarLabel: t("plans.tabTitle"),
 					tabBarLabelStyle: {
 						fontSize: 14,
 					},
@@ -40,6 +47,7 @@ const TabsLayout = () => {
 			<Tabs.Screen
 				name='grocery'
 				options={{
+					tabBarLabel: t("grocery.tabTitle"),
 					tabBarLabelStyle: {
 						fontSize: 14,
 					},

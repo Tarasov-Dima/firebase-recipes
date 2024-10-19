@@ -7,6 +7,7 @@ import { forwardRef } from "react";
 import { View } from "react-native";
 import { Button } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 
 type MenuBottomSheetProps = {
 	ingredients;
@@ -28,6 +29,9 @@ export const MenuBottomSheet = forwardRef<
 		},
 		ref
 	) => {
+		const { t } = useTranslation("translation", {
+			keyPrefix: "screens",
+		});
 		const { bottom } = useSafeAreaInsets();
 
 		return (
@@ -49,7 +53,7 @@ export const MenuBottomSheet = forwardRef<
 						/>
 					</View>
 					<Button mode='contained' onPress={onAddToGroceryList}>
-						Add to grocery list
+						{t("plans.menu.groceryBtn")}
 					</Button>
 				</View>
 			</BottomSheetModal>
