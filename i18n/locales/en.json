@@ -129,6 +129,28 @@
 			}
 		}
 	},
+	"drawer": {
+		"preferences": "Preferences",
+		"darkMode": "Dark Mode",
+		"selectLanguage": "Select Language",
+		"languages": [
+			{
+				"key": "en",
+				"language": "English",
+				"flag": "🇬🇧"
+			},
+			{
+				"key": "pl",
+				"language": "Polski",
+				"flag": "🇵🇱"
+			},
+			{
+				"key": "uk",
+				"language": "Українська",
+				"flag": "🇺🇦"
+			}
+		]
+	},
 	"dishType": {
 		"breakfast": "Breakfast",
 		"lunch": "Lunch",

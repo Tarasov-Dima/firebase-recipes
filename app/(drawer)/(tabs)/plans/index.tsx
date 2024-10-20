@@ -42,13 +42,15 @@ const renderItem = ({ item }: { item: Item }) => {
 
 const PlansTab = () => {
 	return (
-		<FlashList
-			data={DATA}
-			renderItem={renderItem}
-			estimatedItemSize={200}
-			contentContainerStyle={{ padding: 16 }}
-			ItemSeparatorComponent={() => <ItemSeparatorComponent />}
-		/>
+		<>
+			<FlashList
+				data={DATA}
+				renderItem={renderItem}
+				estimatedItemSize={200}
+				contentContainerStyle={{ padding: 16 }}
+				ItemSeparatorComponent={() => <ItemSeparatorComponent />}
+			/>
+		</>
 	);
 };
 

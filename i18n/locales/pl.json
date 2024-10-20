@@ -129,6 +129,28 @@
 			}
 		}
 	},
+	"drawer": {
+		"preferences": "Preferencje",
+		"darkMode": "Tryb ciemny",
+		"selectLanguage": "Wybierz język",
+		"languages": [
+			{
+				"key": "en",
+				"language": "English",
+				"flag": "🇬🇧"
+			},
+			{
+				"key": "pl",
+				"language": "Polski",
+				"flag": "🇵🇱"
+			},
+			{
+				"key": "uk",
+				"language": "Українська",
+				"flag": "🇺🇦"
+			}
+		]
+	},
 	"ingredients": {
 		"cottageCheese": "Twaróg",
 		"eggs": "Jajka",
